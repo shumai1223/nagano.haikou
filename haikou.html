@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>長野の廃校殲滅計画！</title>
+  <title>長野の廃坑殲滅計画！</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts - Inter for modern look, Noto Sans JP for Japanese text -->
@@ -249,7 +249,7 @@
       font-weight: bold;
       font-size: 1.1em;
       transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
       outline: 2px solid transparent; /* デフォルトのアウトラインを透明に */
       outline-offset: 4px;
     }
@@ -652,7 +652,7 @@
 </head>
 <body>
   <header>
-    <h1>長野の廃校殲滅計画！</h1>
+    <h1>長野の廃坑殲滅計画！</h1>
     <p>地域資源を未来へつなぐプロジェクト</p>
   </header>
   <nav>
@@ -862,9 +862,11 @@
     const discussionPointsList = document.getElementById("discussion-points-list");
     const clearPointsBtn = document.getElementById("clear-points-btn");
 
-
     // パスワード定数
     const ADMIN_PASSWORD = "shibaura";
+    const ADV_ADMIN_PASSWORD = "sitgroup";
+
+    let isAdvancedAdmin = false;
 
     // --- カスタムモーダル関連 ---
     const customAlertDialog = document.getElementById('custom-alert-modal');
@@ -952,13 +954,31 @@
 
     // ログインボタンクリック時の処理
     adminLoginBtn.addEventListener("click", () => {
-      if (adminPasswordInput.value === ADMIN_PASSWORD) {
-        adminPasswordContainer.style.display = "none"; // パスワード入力を非表示
-        adminContent.style.display = "flex"; // 管理者コンテンツを表示
-        adminMessage.style.display = "none"; // エラーメッセージを非表示
-        document.getElementById("admin-textarea").focus(); // テキストエリアにフォーカス
+      const enteredPassword = adminPasswordInput.value.trim();
+      if (enteredPassword === ADMIN_PASSWORD || enteredPassword === ADV_ADMIN_PASSWORD) {
+        isAdvancedAdmin = (enteredPassword === ADV_ADMIN_PASSWORD);
+
+        adminPasswordContainer.style.display = "none";
+        adminContent.style.display = "flex";
+        adminMessage.style.display = "none";
+        document.getElementById("admin-textarea").focus();
+
+        if (isAdvancedAdmin) {
+          adminSection.classList.add("advanced-admin");
+          showAlert("高度管理者モードでログインしました。");
+        } else {
+          adminSection.classList.remove("advanced-admin");
+        }
       } else {
-        adminMessage.style.display = "block"; // エラーメッセージを表示
+        adminMessage.style.display = "block";
+      }
+    });
+
+    // パスワード入力で Enter キーでもログイン
+    adminPasswordInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault(); // フォームの送信を防ぐ
+        adminLoginBtn.click();
       }
     });
 
