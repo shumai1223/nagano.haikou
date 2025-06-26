@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>長野の廃坑殲滅計画！</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts - Inter for modern look, Noto Sans JP for Japanese text -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Custom CSS to override/enhance Tailwind and provide global styles */
+    html {
+      scroll-behavior: smooth; /* スムーズスクロールを有効にする */
+    }
+    body {
+      font-family: 'Noto Sans JP', 'Inter', sans-serif;
+      background: linear-gradient(to bottom right, #1a1a2e, #16213e, #0f3460); /* 深い青から紫へのグラデーション */
+      color: #e0e7ff; /* 明るいオフホワイトの文字色 */
+      overflow-x: hidden;
+      line-height: 1.7; /* 行間を広げて読みやすく */
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Inter', 'Noto Sans JP', sans-serif;
+      color: #a7f3d0; /* アクセントカラーの薄い緑 */
+      font-weight: 700;
+    }
+
+    /* Header specific styles */
+    header {
+      background: linear-gradient(90deg, #0f3460, #16213e); /* ヘッダーのグラデーション */
+      padding: 80px 20px;
+      text-align: center;
+      animation: fadeInDown 1s ease-out;
+      position: relative;
+      overflow: hidden;
+      border-bottom-left-radius: 50px; /* 左下を丸く */
+      border-bottom-right-radius: 50px; /* 右下を丸く */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: rgba(167, 243, 208, 0.1);
+      border-radius: 50%;
+      filter: blur(50px);
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 150px;
+      height: 150px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      filter: blur(40px);
+    }
+    header h1 {
+      font-size: 4.5em; /* さらに大きく */
+      margin-bottom: 15px;
+      color: #e0e7ff; /* 白に近い色 */
+      text-shadow: 3px 3px 10px rgba(0,0,0,0.5); /* 影を強調 */
+    }
+    header p {
+      font-size: 1.6em; /* さらに大きく */
+      color: #bfdbfe; /* 薄い青 */
+    }
+
+    /* Navigation specific styles */
+    nav {
+      background: rgba(15, 52, 96, 0.95); /* ナビゲーションの背景を少し濃く */
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid rgba(167, 243, 208, 0.2);
+      display: flex; /* Flexboxでアイテムを配置 */
+      flex-wrap: nowrap; /* アイテムの折り返しを防ぐ */
+      justify-content: center; /* 中央揃え */
+    }
+    nav a {
+      color: #bfdbfe;
+      text-decoration: none;
+      margin: 0 15px; /* マージンを調整 */
+      font-weight: 500;
+      font-size: 1.1em; /* フォントサイズを微調整 */
+      white-space: nowrap; /* テキストの折り返しを防ぐ */
+      transition: all 0.3s ease;
+      padding: 8px 10px; /* パディングを調整 */
+      border-radius: 8px;
+      outline-offset: 4px; /* フォーカス時のアウトラインのオフセット */
+      outline: 2px solid transparent; /* デフォルトのアウトラインを透明に */
+    }
+    nav a:hover {
+      transform: translateY(-3px) scale(1.05);
+      color: #a7f3d0;
+      background: rgba(167, 243, 208, 0.1);
+      box-shadow: 0 0 15px rgba(167, 243, 208, 0.3);
+    }
+    nav a:focus-visible { /* キーボードフォーカス時のスタイル */
+      outline: 2px solid #a7f3d0;
+      box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5);
+    }
+
+    /* Main content specific styles */
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 40px 20px;
+      animation: fadeInUp 1.5s ease-out;
+      background: rgba(22, 33, 62, 0.7); /* メインコンテンツの背景 */
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(167, 243, 208, 0.1);
+      transition: background 0.5s ease; /* 管理画面切り替え時の背景変化を滑らかに */
+    }
+    section {
+      margin-bottom: 80px;
+      padding: 30px; /* パディングを少し増やす */
+      border-radius: 15px;
+      background: rgba(15, 52, 96, 0.3); /* セクションの背景 */
+      box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(167, 243, 208, 0.05);
+    }
+    h2 {
+      font-size: 3em; /* 少し大きく */
+      color: #a7f3d0;
+      border-left: 8px solid #a7f3d0;
+      padding-left: 20px;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+    }
+    p {
+      color: #e0e7ff;
+      font-size: 1.15em; /* フォントサイズを少し大きく */
+      margin-bottom: 15px; /* 段落下の余白 */
+    }
+    ul {
+      list-style: disc; /* リストのスタイル */
+      margin-left: 25px; /* リストのインデント */
+      color: #e0e7ff;
+      font-size: 1.1em;
+    }
+    li {
+      margin-bottom: 8px; /* リストアイテム間の余白 */
+    }
+
+    /* Team section */
+    .team {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* グリッドレイアウト */
+      gap: 30px;
+    }
+    .member {
+      background: #1a2a4e; /* メンバーカードの背景 */
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      padding: 25px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(167, 243, 208, 0.15);
+      text-align: center;
+    }
+    .member:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+      background: #1f3560; /* ホバー時の背景色 */
+    }
+    .member h4 {
+      font-size: 1.7em; /* 少し大きく */
+      color: #a7f3d0;
+      margin-bottom: 10px;
+    }
+    .member p {
+      font-size: 1.05em;
+      color: #bfdbfe;
+    }
+
+    /* Idea blocks */
+    .idea {
+      background: rgba(26, 42, 78, 0.8);
+      border-left: 6px solid #a7f3d0;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .idea:hover {
+      transform: translateX(5px) scale(1.01); /* ホバー効果を強調 */
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 20px rgba(167, 243, 208, 0.3); /* 光る影を追加 */
+    }
+    .idea h3 {
+      font-size: 1.9em; /* 少し大きく */
+      color: #e0e7ff;
+      margin-bottom: 10px;
+    }
+    .idea p {
+      font-size: 1.15em; /* 少し大きく */
+      color: #bfdbfe;
+    }
+
+    /* Contact form */
+    form {
+      background: #1a2a4e;
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      border: 1px solid rgba(167, 243, 208, 0.15);
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"], /* パスワード入力フィールド用 */
+    textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #3b5998; /* 入力欄のボーダー色 */
+      border-radius: 10px;
+      background: #111a2d; /* 入力欄の背景色 */
+      color: #e0e7ff;
+      font-size: 1.05em;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      outline: 2px solid transparent; /* デフォルトのアウトラインを透明に */
+      outline-offset: 2px;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus, /* パスワード入力フィールド用 */
+    textarea:focus {
+      outline: none;
+      border-color: #a7f3d0;
+      box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.3);
+    }
+    input[type="submit"],
+    .btn-primary { /* ボタン共通スタイル */
+      background: #a7f3d0; /* 送信ボタンの背景 */
+      color: #0f3460; /* 送信ボタンの文字色 */
+      border: none;
+      padding: 12px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      outline: 2px solid transparent; /* デフォルトのアウトラインを透明に */
+      outline-offset: 4px;
+    }
+    input[type="submit"]:hover,
+    .btn-primary:hover {
+      background: #7bdcb5; /* ホバー時の背景色 */
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    input[type="submit"]:focus-visible,
+    .btn-primary:focus-visible { /* キーボードフォーカス時のスタイル */
+      outline: 2px solid #a7f3d0;
+      box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5);
+    }
+    .btn-secondary { /* 管理画面用セカンダリボタン */
+      background: #3b5998;
+      color: #e0e7ff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      outline: 2px solid transparent;
+      outline-offset: 3px;
+    }
+    .btn-secondary:hover {
+      background: #4a6fa5;
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .btn-secondary:focus-visible {
+      outline: 2px solid #a7f3d0;
+      box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5);
+    }
+
+
+    /* Footer */
+    footer {
+      background: #0f3460;
+      color: #bfdbfe;
+      text-align: center;
+      padding: 25px;
+      font-size: 0.95em;
+      margin-top: 60px;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Scroll to top button */
+    #scrollToTopBtn {
+      display: none; /* Hidden by default */
+      position: fixed; /* Fixed position */
+      bottom: 30px; /* Place at the bottom */
+      right: 30px; /* Place at the right */
+      z-index: 999; /* Higher z-index to be on top */
+      background-color: #a7f3d0; /* Button background */
+      color: #0f3460; /* Button text color */
+      border: none;
+      border-radius: 50%; /* Make it round */
+      width: 50px;
+      height: 50px;
+      font-size: 1.8em;
+      font-weight: bold;
+      line-height: 50px; /* Vertically center content */
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+      opacity: 0.8;
+      outline: 2px solid transparent; /* デフォルトのアウトラインを透明に */
+      outline-offset: 4px;
+    }
+    #scrollToTopBtn:hover {
+      background-color: #7bdcb5;
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    #scrollToTopBtn:focus-visible {
+      outline: 2px solid #a7f3d0;
+      box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5);
+    }
+
+    /* Admin specific styles */
+    #admin-section {
+      display: none; /* 初期状態では非表示 */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 70vh; /* 管理画面の最小高さを設定 */
+      padding: 40px;
+      background: rgba(10, 20, 40, 0.95); /* 管理画面の背景色を濃く */
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(167, 243, 208, 0.2);
+      max-width: 900px; /* 最大幅を設定 */
+      margin: 40px auto; /* 中央寄せ */
+    }
+    #admin-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 25px;
+      color: #a7f3d0;
+      text-align: center;
+      border-left: none; /* 管理画面ではボーダーを削除 */
+      padding-left: 0;
+    }
+    #admin-password-container {
+      margin-top: 20px;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+    #admin-content {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .admin-feature-block {
+      background: rgba(26, 42, 78, 0.8);
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      width: 100%;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      border: 1px solid rgba(167, 243, 208, 0.1);
+    }
+    .admin-feature-block label {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    #admin-textarea {
+      width: 100%;
+      min-height: 400px;
+      background: #0d172a;
+      border: 1px solid #3b5998;
+      border-radius: 10px;
+      padding: 20px;
+      color: #e0e7ff;
+      font-size: 1.1em;
+      resize: vertical; /* 縦方向のみリサイズ可能 */
+      margin-bottom: 0; /* ボタンとの間隔は親要素で調整 */
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+    #admin-textarea:focus {
+      border-color: #a7f3d0;
+      box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.3);
+    }
+    #admin-message {
+      color: #ef4444; /* 赤色のエラーメッセージ */
+      margin-top: 10px;
+      font-weight: 500;
+      text-align: center;
+    }
+    #discussion-points-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background-color: rgba(43, 56, 91, 0.7); /* グレー系の背景 */
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(167, 243, 208, 0.1);
+    }
+    #discussion-points-list li span {
+      flex-grow: 1;
+      color: #e0e7ff;
+    }
+    #discussion-points-list li button {
+      background: none;
+      border: none;
+      color: #ef4444;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: color 0.3s;
+      padding: 5px;
+      border-radius: 5px;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+    #discussion-points-list li button:hover {
+      color: #dc2626;
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+    #discussion-points-list li button:focus-visible {
+      outline: 2px solid #a7f3d0;
+      box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5);
+    }
+
+
+    /* Custom Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      z-index: 1001;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      visibility: hidden; /* Use visibility for transition */
+      opacity: 0;
+      transition: visibility 0.3s, opacity 0.3s;
+    }
+    .modal-overlay.is-visible {
+      visibility: visible;
+      opacity: 1;
+    }
+    .modal-content {
+      background-color: #1a2a4e;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      color: #e0e7ff;
+      transform: translateY(-20px); /* Initial position for animation */
+      transition: transform 0.3s ease-out;
+    }
+    .modal-overlay.is-visible .modal-content {
+      transform: translateY(0); /* Final position */
+    }
+    .modal-content p {
+      font-size: 1.1em;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+    .modal-btn {
+      background-color: #a7f3d0;
+      color: #0f3460;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+      outline: none;
+      margin: 0 5px; /* ボタン間のスペース */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .modal-btn:hover {
+      background-color: #7bdcb5;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .modal-btn:focus-visible {
+      outline: 2px solid #a7f3d0;
+      box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5);
+    }
+    .modal-btn-cancel {
+      background-color: #ef4444;
+      color: white;
+    }
+    .modal-btn-cancel:hover {
+      background-color: #dc2626;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+
+    /* Keyframe animations */
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        padding: 60px 15px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+      }
+      header h1 {
+        font-size: 2.8em;
+      }
+      header p {
+        font-size: 1.1em;
+      }
+      nav {
+        flex-direction: column;
+        padding: 10px 0;
+      }
+      nav a {
+        margin: 5px 0;
+        font-size: 1em;
+        padding: 8px 15px;
+      }
+      main {
+        padding: 20px 15px;
+        margin: 20px auto;
+        border-radius: 15px;
+      }
+      section {
+        margin-bottom: 50px;
+        padding: 15px;
+        border-radius: 10px;
+      }
+      h2 {
+        font-size: 2.2em; /* スマホでは少し小さく */
+        border-left: 6px solid #a7f3d0;
+        padding-left: 15px;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 1.05em; /* スマホでは少し小さく */
+      }
+      .team {
+        grid-template-columns: 1fr; /* 1列表示 */
+        gap: 20px;
+      }
+      .member {
+        padding: 20px;
+        border-radius: 12px;
+      }
+      .member h4 {
+        font-size: 1.4em;
+      }
+      form {
+        padding: 25px;
+        border-radius: 15px;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      textarea {
+        padding: 10px 12px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        font-size: 0.95em;
+      }
+      input[type="submit"],
+      .btn-primary,
+      .btn-secondary {
+        padding: 10px 25px;
+        border-radius: 8px;
+        font-size: 1em;
+      }
+      footer {
+        margin-top: 40px;
+        padding: 20px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+      }
+      #scrollToTopBtn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5em;
+        line-height: 40px;
+        bottom: 20px;
+        right: 20px;
+      }
+      #admin-section {
+        padding: 20px;
+      }
+      #admin-section h2 {
+        font-size: 2em;
+      }
+      #admin-textarea {
+        min-height: 300px;
+        font-size: 1em;
+      }
+      .modal-content {
+        padding: 20px;
+      }
+      .modal-btn {
+        padding: 8px 15px;
+        font-size: 0.9em;
+      }
+    }
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2.2em;
+      }
+      header p {
+        font-size: 1em;
+      }
+      h2 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>長野の廃坑殲滅計画！</h1>
+    <p>地域資源を未来へつなぐプロジェクト</p>
+  </header>
+  <nav>
+    <a href="#mission" aria-label="私たちの想い">私たちの想い</a>
+    <a href="#usage" aria-label="廃校の活用案">廃校の活用案</a>
+    <a href="#challenges" aria-label="廃校の現状と課題">廃校の現状と課題</a>
+    <a href="#examples" aria-label="活用事例">活用事例</a>
+    <a href="#team" aria-label="チーム紹介">チーム紹介</a>
+    <a href="#contact" aria-label="お問い合わせ">お問い合わせ</a>
+    <a href="#" id="adminLink" aria-label="管理者ページへ">管理者</a>
+  </nav>
+  <main id="main-content">
+    <section id="mission">
+      <h2>私たちの想い</h2>
+      <p>少子化と過疎化が進行する長野県において、廃校は単なる空き家ではなく、地域の記憶と未来の可能性を秘めた大切な資源です。私たちは、これらの廃校を新たな価値を持つ場所として再生し、地域活性化に貢献することを目指しています。</p>
+      <p class="mt-4">長野県の人口は2001年のピークから減少の一途をたどり、2024年には200万人を下回ると予測されています。この人口減少と少子化の影響で、県内の廃校数は年々増加しており、地域社会に新たな課題を投げかけています。しかし、廃校は単なる負の遺産ではありません。かつて子どもたちの声が響き渡った学び舎は、地域文化の中心であり、新たな可能性を秘めた場所なのです。</p>
+    </section>
+
+    <section id="challenges">
+      <h2>廃校の現状と課題</h2>
+      <p>長野県における廃校は、以下のようないくつかの深刻な課題を抱えています。</p>
+      <ul class="list-disc ml-6 mt-4">
+        <li><strong>維持管理コストの増大</strong>: 電気、水道、施設の修繕、固定資産税など、使われていない建物にも維持費用がかかり、自治体や地域の財政を圧迫しています。老朽化が進むにつれて、このコストはさらに増大する傾向にあります。</li>
+        <li><strong>老朽化と安全性の問題</strong>: 長期間使用されないことで建物の老朽化が急速に進み、倒壊の危険性や、不法侵入による事故、火災、または犯罪のリスクが増加しています。地域住民の安全確保が喫緊の課題です。</li>
+        <li><strong>景観の悪化と地域イメージの低下</strong>: 雑草が生い茂り、窓ガラスが割れた荒廃した廃校は、地域の景観を著しく損ねます。これは、外部からの訪問者や移住希望者に対してネガティブな印象を与え、地域全体の魅力低下につながりかねません。</li>
+        <li><strong>地域コミュニティの中核機能の喪失</strong>: 学校は、かつて運動会や文化祭、地域のお祭りなど、様々なイベントの会場であり、地域住民の交流の中心でした。廃校により、そのコミュニティ形成の場が失われ、地域社会の活力が低下する傾向にあります。特に高齢化が進む地域では、この影響は深刻です。</li>
+        <li><strong>貴重な地域資源の機会損失</strong>: 広大な敷地やユニークな構造、そして地域の歴史を刻んだ廃校は、本来であれば様々な創造的な活用が期待できる貴重な地域資源です。しかし、適切な活用策が見出せないことで、その潜在的な価値が失われ、地域の発展の機会を逃しています。</li>
+      </ul>
+      <p class="mt-6">これらの課題を克服し、廃校を地域の新たな光とするためには、単なる解体ではなく、持続可能な利活用モデルの構築が不可欠です。</p>
+    </section>
+
+    <section id="usage">
+      <h2>廃校の多様な活用案</h2>
+      <p class="mb-6">私たちは、廃校が持つ無限の可能性を信じ、地域に根ざした多様な活用アイデアを提案します。それぞれの案が、地域の特性とニーズに合致するように検討されています。</p>
+      <div class="idea">
+        <h3>地域交流・活動拠点としての再生</h3>
+        <p>使われなくなった教室や体育館を、多世代が交流できる場として再構築します。地域の集会所、高齢者サロン、子どもたちの遊び場、または地元食材を提供するカフェやパン工房など、誰もが気軽に立ち寄れるオープンな空間を提供します。地域のイベント開催や、住民同士の新しいつながりを生み出すハブとなります。</p>
+      </div>
+      <div class="idea">
+        <h3>観光・宿泊施設への転換</h3>
+        <p>廃校のノスタルジックな雰囲気と広々とした空間を最大限に活かし、宿泊体験型施設やワーケーション（仕事と休暇を組み合わせた滞在）向けの施設として整備します。教室を客室に、体育館を共有スペースに改修し、都会からの訪問者や企業研修の誘致により、新たな観光客の流れと地域経済の活性化を生み出します。修学旅行のような体験も提供可能です。</p>
+      </div>
+      <div class="idea">
+        <h3>地域資源を学ぶ体験型教育施設</h3>
+        <p>地元の豊かな自然や歴史、伝統文化を学べる体験型ミュージアムやワークショップスペースとして活用します。例えば、地域の工芸品作り、農業体験、星空観察など、子どもから大人までが長野の魅力を深く知り、未来へとつなぐ学びの場を創出します。これにより、地域外からの教育旅行の誘致も期待できます。</p>
+      </div>
+      <div class="idea">
+        <h3>クリエイティブ・アートハブとしての活用</h3>
+        <p>広い空間や独特の雰囲気を活かして、アーティストのアトリエ、ギャラリー、音楽スタジオ、演劇の稽古場など、クリエイティブな活動の拠点とします。地域内外のアーティストが集まることで、新たな文化の発信地となり、若者の移住促進や地域への定着にもつながります。アートイベントやワークショップの開催も可能です。</p>
+      </div>
+      <div class="idea">
+        <h3>防災拠点・地域レジリエンス強化施設</h3>
+        <p>災害時には避難所や物資の備蓄拠点として機能させるとともに、平時には防災訓練や地域住民のコミュニティ形成の場として活用します。地域住民が防災意識を高め、有事の際に互いに助け合える強靭なコミュニティを築くための重要なインフラとなります。備蓄倉庫や簡易シャワー施設なども整備可能です。</p>
+      </div>
+      <div class="idea">
+        <h3>地域産業振興のための施設</h3>
+        <p>廃校の敷地や建物を活用し、地域の特産品加工施設、地酒の醸造所、クラフトビールのブルワリー、または小規模な工場として転用します。これにより、新たな雇用を創出し、地域経済の活性化に直接貢献します。製品の直売所や体験コーナーを併設することで、観光客の誘致にも繋がります。</p>
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>全国・長野県内の活用事例</h2>
+      <p class="mb-6">廃校の活用は、地域の課題解決と活性化に繋がる成功事例が多数存在します。これらの事例から学び、長野の廃校に最適な活用策を見出すことができます。</p>
+      <div class="idea">
+        <h3>道の駅「きらら289」（福島県南会津町）</h3>
+        <p>旧南郷小学校の校舎を改修し、道の駅として生まれ変わりました。地域の特産品販売、レストラン、休憩スペースに加え、旧体育館を「木育施設」として活用し、子どもたちが木材と触れ合いながら遊べる場となっています。地域の交流促進と観光客誘致に成功した好例です。</p>
+      </div>
+      <div class="idea">
+        <h3>「ちいさなせかい」（長野県大町市）</h3>
+        <p>旧美麻小学校を利用した宿泊施設。校舎の雰囲気を残しつつ、モダンなデザインと快適性を両立させ、ワーケーションや合宿、イベント利用にも対応しています。併設されたカフェは、地域住民や訪問者の交流の場としても機能し、地域に新たな賑わいをもたらしています。</p>
+      </div>
+      <div class="idea">
+        <h3>「星と森のロマントピア」（青森県弘前市）</h3>
+        <p>旧小学校の跡地に建設された天文台を核とする総合レジャー施設。宿泊施設、温泉、キャンプ場なども備え、星空観測をテーマにしたユニークな体験を提供しています。これにより、広範囲からの観光客を誘致し、地域の観光振興に大きく貢献しています。</p>
+      </div>
+      <div class="idea">
+        <h3>旧日義小学校「きそむら体験交流館」（長野県木曽町）</h3>
+        <p>木曽町の旧日義小学校は、地域住民と観光客が交流できる体験交流館として活用されています。木工体験や郷土料理作りなど、木曽の文化を体験できるプログラムが提供されており、地域の魅力を発信する拠点となっています。</p>
+      </div>
+      <div class="idea">
+        <h3>「スタジオジブリ風の谷のナウシカ」イメージのアトリエ（長野県下諏訪町）</h3>
+        <p>具体的な施設名ではないですが、長野県内には廃校をアートスタジオやアトリエとして活用し、自然豊かな環境で創作活動に集中できるクリエイターが移住・活動する例が増えています。地域の風景と調和したアート活動は、新たな地域ブランドの創出にも繋がっています。</p>
+      </div>
+    </section>
+
+    <section id="team">
+      <h2>プロジェクトメンバー</h2>
+      <div class="team">
+        <div class="member">
+          <h4>國井秀哉</h4>
+          <p>資料作成・Webサイト制作統括担当。プロジェクトのビジョンを明確にし、視覚的な魅力を最大限に引き出すための資料作成とWebサイト全体の統括を行いました。</p>
+        </div>
+        <div class="member">
+          <h4>安藤堪祐</h4>
+          <p>地域住民との対話・議論推進担当。現地での詳細なヒアリングを通じて、地域の方々の生の声やニーズを深く掘り下げ、プロジェクトの方向性を決定する上での重要な議論を主導しました。</p>
+        </div>
+        <div class="member">
+          <h4>加藤康成</h4>
+          <p>プレゼンテーション資料作成・デザイン担当。複雑なデータや情報を分かりやすく、かつ美しく可視化するデザインスキルを活かし、プロジェクトの魅力を効果的に伝える資料を作成しました。</p>
+        </div>
+        <div class="member">
+          <h4>伊沢威霖</h4>
+          <p>プレゼンテーション資料作成・技術サポート担当。資料作成における技術的な側面（ソフトウェア操作、データ処理など）を幅広くサポートし、発表がスムーズに行われるよう舞台裏で支えました。</p>
+        </div>
+      </div>
+    </section>
+    <section id="contact">
+      <h2>お問い合わせ</h2>
+      <p class="mb-6">プロジェクトに関するご質問やご意見は、以下のフォームからお寄せください。</p>
+      <form id="contact-form">
+        <label for="name" class="block mb-2 text-blue-200">お名前：</label>
+        <input type="text" id="name" name="name" required aria-label="お名前を入力してください">
+
+        <label for="email" class="block mb-2 text-blue-200">メールアドレス：</label>
+        <input type="email" id="email" name="email" required aria-label="メールアドレスを入力してください">
+
+        <label for="message" class="block mb-2 text-blue-200">メッセージ：</label>
+        <textarea id="message" name="message" rows="5" cols="40" aria-label="メッセージを入力してください"></textarea>
+
+        <input type="submit" value="送信">
+      </form>
+      <div id="form-message" class="mt-4 text-center" style="display: none;"></div>
+    </section>
+  </main>
+
+  <!-- Admin Section -->
+  <div id="admin-section">
+    <h2>管理者ページ</h2>
+    <div id="admin-password-container">
+      <p class="mb-4">パスワードを入力してください：</p>
+      <input type="password" id="admin-password" placeholder="パスワード" aria-label="管理者パスワードを入力">
+      <button id="admin-login-btn" class="btn-primary mt-4" aria-label="ログイン">ログイン</button>
+      <p id="admin-message" class="mt-2 text-red-400" style="display: none;">パスワードが間違っています。</p>
+    </div>
+    <div id="admin-content">
+      <div class="admin-feature-block">
+        <label for="discussion-topic" class="block mb-2 text-blue-200 text-lg">議論テーマ：</label>
+        <input type="text" id="discussion-topic" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:border-green-400 focus:ring focus:ring-green-400 focus:ring-opacity-50" placeholder="議論のテーマを入力" aria-label="議論のテーマ">
+      </div>
+
+      <div class="admin-feature-block mt-8">
+        <label for="admin-textarea" class="block mb-2 text-blue-200 text-lg">議論メモ / 詳細：</label>
+        <textarea id="admin-textarea" class="w-full min-h-[400px] p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:border-green-400 focus:ring focus:ring-green-400 focus:ring-opacity-50 resize-y" placeholder="ここに議論の詳細やメモを記述できます。" aria-label="議論の詳細やメモを記述するテキストエリア"></textarea>
+        <div class="flex justify-end gap-4 mt-4">
+          <button id="save-notes-btn" class="btn-secondary" aria-label="メモを保存">メモを保存</button>
+          <button id="clear-notes-btn" class="btn-secondary" aria-label="メモをクリア">メモをクリア</button>
+        </div>
+      </div>
+
+      <div class="admin-feature-block mt-8">
+        <h3 class="text-xl font-semibold mb-4 text-blue-200">議論ポイント</h3>
+        <div class="flex gap-2 mb-3">
+          <input type="text" id="discussion-point-input" class="flex-grow p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:border-green-400 focus:ring focus:ring-green-400 focus:ring-opacity-50" placeholder="新しい議論ポイントを追加" aria-label="新しい議論ポイントを追加">
+          <button id="add-point-btn" class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg transition duration-200" aria-label="ポイントを追加">追加</button>
+        </div>
+        <ul id="discussion-points-list" class="list-disc ml-6 text-e0e7ff space-y-2">
+          <!-- Discussion points will be dynamically added here -->
+        </ul>
+        <div class="flex justify-end mt-4">
+          <button id="clear-points-btn" class="btn-secondary" aria-label="ポイントリストをクリア">ポイントをクリア</button>
+        </div>
+      </div>
+
+      <button id="admin-back-btn" class="btn-primary mt-12" aria-label="メインページに戻る">メインページに戻る</button>
+    </div>
+  </div>
+
+  <button id="scrollToTopBtn" title="トップへ戻る" aria-label="ページトップへスクロール">↑</button>
+
+  <!-- Custom Modal for Alerts -->
+  <div id="custom-alert-modal" class="modal-overlay">
+    <div class="modal-content">
+      <p id="custom-alert-message"></p>
+      <button id="custom-alert-ok-btn" class="modal-btn">OK</button>
+    </div>
+  </div>
+
+  <!-- Custom Modal for Confirms -->
+  <div id="custom-confirm-modal" class="modal-overlay">
+    <div class="modal-content">
+      <p id="custom-confirm-message"></p>
+      <div class="modal-actions">
+        <button id="custom-confirm-ok-btn" class="modal-btn">はい</button>
+        <button id="custom-confirm-cancel-btn" class="modal-btn modal-btn-cancel">いいえ</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 主要コンテンツと管理者コンテンツのDOM要素を取得
+    const mainContent = document.getElementById("main-content");
+    const adminSection = document.getElementById("admin-section");
+    const adminLink = document.getElementById("adminLink");
+    const adminPasswordInput = document.getElementById("admin-password");
+    const adminLoginBtn = document.getElementById("admin-login-btn");
+    const adminPasswordContainer = document.getElementById("admin-password-container");
+    const adminContent = document.getElementById("admin-content");
+    const adminBackBtn = document.getElementById("admin-back-btn");
+    const adminMessage = document.getElementById("admin-message");
+
+    // 管理者ページ機能関連のDOM要素
+    const discussionTopicInput = document.getElementById("discussion-topic");
+    const saveNotesBtn = document.getElementById("save-notes-btn");
+    const clearNotesBtn = document.getElementById("clear-notes-btn");
+    const discussionPointInput = document.getElementById("discussion-point-input");
+    const addPointBtn = document.getElementById("add-point-btn");
+    const discussionPointsList = document.getElementById("discussion-points-list");
+    const clearPointsBtn = document.getElementById("clear-points-btn");
+
+
+    // パスワード定数
+    const ADMIN_PASSWORD = "shibaura";
+
+    // --- カスタムモーダル関連 ---
+    const customAlertDialog = document.getElementById('custom-alert-modal');
+    const customAlertMessage = document.getElementById('custom-alert-message');
+    const customAlertOkBtn = document.getElementById('custom-alert-ok-btn');
+
+    const customConfirmDialog = document.getElementById('custom-confirm-modal');
+    const customConfirmMessage = document.getElementById('custom-confirm-message');
+    const customConfirmOkBtn = document.getElementById('custom-confirm-ok-btn');
+    const customConfirmCancelBtn = document.getElementById('custom-confirm-cancel-btn');
+
+    let confirmCallback = null; // confirmのコールバック関数を格納
+
+    /**
+     * カスタムアラートダイアログを表示
+     * @param {string} message - 表示するメッセージ
+     */
+    function showAlert(message) {
+      customAlertMessage.textContent = message;
+      customAlertDialog.classList.add('is-visible');
+      customAlertOkBtn.focus(); // OKボタンにフォーカス
+    }
+
+    /**
+     * カスタム確認ダイアログを表示
+     * @param {string} message - 表示するメッセージ
+     * @param {function(boolean): void} callback - 確認結果を返すコールバック関数
+     */
+    function showConfirm(message, callback) {
+      customConfirmMessage.textContent = message;
+      confirmCallback = callback;
+      customConfirmDialog.classList.add('is-visible');
+      customConfirmOkBtn.focus(); // OKボタンにフォーカス
+    }
+
+    customAlertOkBtn.addEventListener('click', () => {
+      customAlertDialog.classList.remove('is-visible');
+    });
+
+    customConfirmOkBtn.addEventListener('click', () => {
+      customConfirmDialog.classList.remove('is-visible');
+      if (confirmCallback) {
+        confirmCallback(true); // はいがクリックされた
+        confirmCallback = null;
+      }
+    });
+
+    customConfirmCancelBtn.addEventListener('click', () => {
+      customConfirmDialog.classList.remove('is-visible');
+      if (confirmCallback) {
+        confirmCallback(false); // いいえがクリックされた
+        confirmCallback = null;
+      }
+    });
+
+    // window.alert と window.confirm をカスタムモーダルに置き換え
+    window.alert = showAlert;
+    window.confirm = showConfirm;
+
+    // --- 管理者ページ機能 ---
+
+    // ローカルストレージから管理者コンテンツを読み込む
+    function loadAdminContent() {
+      const savedTopic = localStorage.getItem("adminDiscussionTopic");
+      const savedNotes = localStorage.getItem("adminDiscussionNotes");
+      const savedPoints = JSON.parse(localStorage.getItem("adminDiscussionPoints")) || [];
+
+      if (savedTopic) discussionTopicInput.value = savedTopic;
+      if (savedNotes) adminTextarea.value = savedNotes;
+      renderDiscussionPoints(savedPoints);
+    }
+
+    // 管理者リンククリック時の処理
+    adminLink.addEventListener("click", (e) => {
+      e.preventDefault(); // デフォルトのリンク動作をキャンセル
+      mainContent.style.display = "none"; // メインコンテンツを非表示
+      adminSection.style.display = "flex"; // 管理者セクションを表示
+      adminPasswordContainer.style.display = "block"; // パスワード入力を表示
+      adminContent.style.display = "none"; // 管理者コンテンツを非表示
+      adminPasswordInput.value = ""; // パスワード入力欄をクリア
+      adminMessage.style.display = "none"; // エラーメッセージを非表示
+      adminPasswordInput.focus(); // パスワード入力にフォーカス
+      loadAdminContent(); // 管理者コンテンツを読み込む
+    });
+
+    // ログインボタンクリック時の処理
+    adminLoginBtn.addEventListener("click", () => {
+      if (adminPasswordInput.value === ADMIN_PASSWORD) {
+        adminPasswordContainer.style.display = "none"; // パスワード入力を非表示
+        adminContent.style.display = "flex"; // 管理者コンテンツを表示
+        adminMessage.style.display = "none"; // エラーメッセージを非表示
+        document.getElementById("admin-textarea").focus(); // テキストエリアにフォーカス
+      } else {
+        adminMessage.style.display = "block"; // エラーメッセージを表示
+      }
+    });
+
+    // 戻るボタンクリック時の処理 (管理者ページからメインページへ)
+    adminBackBtn.addEventListener("click", () => {
+      adminSection.style.display = "none"; // 管理者セクションを非表示
+      mainContent.style.display = "block"; // メインコンテンツを表示
+      // メインコンテンツの最初のセクションにスクロールして戻る
+      document.getElementById("mission").scrollIntoView();
+    });
+
+    // メモ保存ボタンクリック時の処理
+    saveNotesBtn.addEventListener("click", () => {
+      localStorage.setItem("adminDiscussionTopic", discussionTopicInput.value);
+      localStorage.setItem("adminDiscussionNotes", adminTextarea.value);
+      showAlert("メモとテーマが保存されました！");
+    });
+
+    // メモクリアボタンクリック時の処理
+    clearNotesBtn.addEventListener("click", () => {
+      showConfirm("メモとテーマをクリアしますか？", (result) => {
+        if (result) {
+          discussionTopicInput.value = "";
+          adminTextarea.value = "";
+          localStorage.removeItem("adminDiscussionTopic");
+          localStorage.removeItem("adminDiscussionNotes");
+          showAlert("メモとテーマがクリアされました。");
+        }
+      });
+    });
+
+    // 議論ポイント追加ボタンクリック時の処理
+    addPointBtn.addEventListener("click", () => {
+      const pointText = discussionPointInput.value.trim();
+      if (pointText) {
+        let savedPoints = JSON.parse(localStorage.getItem("adminDiscussionPoints")) || [];
+        savedPoints.push(pointText);
+        localStorage.setItem("adminDiscussionPoints", JSON.stringify(savedPoints));
+        discussionPointInput.value = "";
+        renderDiscussionPoints(savedPoints);
+      } else {
+        showAlert("議論ポイントを入力してください。");
+      }
+    });
+
+    // 議論ポイントをリストにレンダリングする関数
+    function renderDiscussionPoints(points) {
+      discussionPointsList.innerHTML = ""; // 既存のポイントをクリア
+      points.forEach((point, index) => {
+        const li = document.createElement("li");
+        li.className = "flex items-center justify-between py-1 px-2 rounded-md bg-gray-700 mb-1"; // Tailwind classes for styling
+        li.innerHTML = `
+          <span class="flex-grow text-e0e7ff">${point}</span>
+          <button class="ml-4 text-red-400 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 rounded-full p-1" data-index="${index}" aria-label="この議論ポイントを削除">
+              &times;
+          </button>
+        `;
+        discussionPointsList.appendChild(li);
+      });
+    }
+
+    // 議論ポイント削除（イベント委譲を使用）
+    discussionPointsList.addEventListener("click", (e) => {
+      if (e.target.tagName === "BUTTON" && e.target.hasAttribute("data-index")) {
+        showConfirm("この議論ポイントを削除しますか？", (result) => {
+          if (result) {
+            const indexToRemove = parseInt(e.target.dataset.index);
+            let savedPoints = JSON.parse(localStorage.getItem("adminDiscussionPoints")) || [];
+            savedPoints.splice(indexToRemove, 1);
+            localStorage.setItem("adminDiscussionPoints", JSON.stringify(savedPoints));
+            renderDiscussionPoints(savedPoints);
+            showAlert("議論ポイントが削除されました。");
+          }
+        });
+      }
+    });
+
+    // 全議論ポイントクリアボタンクリック時の処理
+    clearPointsBtn.addEventListener("click", () => {
+      showConfirm("全ての議論ポイントをクリアしますか？", (result) => {
+        if (result) {
+          localStorage.removeItem("adminDiscussionPoints");
+          renderDiscussionPoints([]);
+          showAlert("全ての議論ポイントがクリアされました。");
+        }
+      });
+    });
+
+    // --- スクロールトップボタン ---
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // スクロールイベントリスナーを追加
+    window.onscroll = function() {
+      // ページのスクロール量に応じてボタンの表示を切り替える
+      // 管理者セクションが表示されている場合はボタンを非表示
+      if (adminSection.style.display === "flex") {
+        scrollToTopBtn.style.display = "none";
+      } else if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        scrollToTopBtn.style.display = "block"; // スクロール量が300pxを超えたら表示
+      } else {
+        scrollToTopBtn.style.display = "none"; // そうでなければ非表示
+      }
+    };
+
+    // ボタンがクリックされたときの処理
+    scrollToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // Safari用
+      document.documentElement.scrollTop = 0; // その他のブラウザ用
+    });
+
+    // --- お問い合わせフォームの簡易検証 ---
+    const contactForm = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault(); // デフォルトの送信を防止
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      if (!name || !email || !message) {
+        formMessage.style.display = 'block';
+        formMessage.style.color = '#ef4444'; /* Tailwind red-500 */
+        formMessage.textContent = '全ての必須項目を入力してください。';
+      } else {
+        formMessage.style.display = 'block';
+        formMessage.style.color = '#a7f3d0'; /* Tailwind green-300 */
+        formMessage.textContent = 'お問い合わせありがとうございます！メッセージが送信されました。（実際には送信されません）';
+        contactForm.reset(); // フォームをリセット
+      }
+    });
+
+    // 入力フィールドのフォーカスが外れたときにエラーメッセージをリセット
+    document.querySelectorAll('#contact-form input, #contact-form textarea').forEach(input => {
+      input.addEventListener('input', () => {
+        formMessage.style.display = 'none';
+      });
+    });
+
+  </script>
+</body>
+</html>
