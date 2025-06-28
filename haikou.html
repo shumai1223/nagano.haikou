@@ -32,6 +32,7 @@
       background: linear-gradient(90deg, #0f3460, #16213e); /* ヘッダーのグラデーション */
       padding: 80px 20px;
       text-align: center;
+      /* animation: fadeInDown 1s ease-out; <-- REMOVED, handled by h1 and p animations */
       position: relative;
       overflow: hidden;
       border-bottom-left-radius: 50px; /* 左下を丸く */
@@ -120,6 +121,7 @@
       max-width: 1100px;
       margin: 40px auto;
       padding: 40px 20px;
+      /* animation: fadeInUp 1.5s ease-out; <-- REMOVED */
       background: rgba(22, 33, 62, 0.7); /* メインコンテンツの背景 */
       border-radius: 20px;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
@@ -360,7 +362,7 @@
       border-radius: 50%; /* Make it round */
       width: 50px;
       height: 50px;
-      font-size: 1.8em;
+      font-size: 1.5em;
       font-weight: bold;
       line-height: 50px; /* Vertically center content */
       text-align: center;
@@ -511,25 +513,21 @@
         color: #e0e7ff;
     }
     #user-list li button, #pending-content-list li button {
-      background: none;
-      border: none;
-      color: #ef4444;
-      font-size: 1.2em;
-      cursor: pointer;
-      margin-left: 10px;
-      transition: color 0.3s, background-color 0.3s;
-      padding: 5px;
-      border-radius: 5px;
-      outline: 2px solid transparent;
-      outline-offset: 2px;
+        background: none;
+        border: none;
+        color: #ef4444;
+        font-size: 1.2em;
+        cursor: pointer;
+        margin-left: 10px;
+        transition: color 0.3s;
+        padding: 5px;
+        border-radius: 5px;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
     }
     #user-list li button:hover, #pending-content-list li button:hover {
         color: #dc2626;
         background-color: rgba(239, 68, 68, 0.1);
-    }
-    #user-list li button:focus-visible, #pending-content-list li button:focus-visible {
-      outline: 2px solid #a7f3d0;
-      box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5);
     }
     #site-title-input, #welcome-message-input, #user-name-input, #content-title-input {
       width: 100%;
@@ -644,15 +642,6 @@
       display: flex;
       justify-content: center;
       gap: 15px;
-    }
-
-    /* Specific color for edit button */
-    #usage-ideas-list-admin .edit-idea-btn, #examples-ideas-list-admin .edit-idea-btn {
-        color: #60a5fa; /* Tailwind blue-400 */
-    }
-    #usage-ideas-list-admin .edit-idea-btn:hover, #examples-ideas-list-admin .edit-idea-btn:hover {
-        color: #3b82f6; /* Tailwind blue-500 */
-        background-color: rgba(96, 165, 250, 0.1);
     }
 
 
@@ -1842,6 +1831,27 @@
       });
     });
 
+    // ナビゲーションリンクのクリックイベントを処理
+    document.querySelectorAll('nav a:not(#adminLink)').forEach(link => {
+      link.addEventListener('click', (e) => {
+        // 管理者画面が表示されている場合は、メインコンテンツを表示してからスクロール
+        if (adminSection.style.display === 'flex') {
+          e.preventDefault();
+          mainContent.style.display = 'block';
+          adminSection.style.display = 'none';
+          
+          // リンク先のセクションにスクロール
+          const targetId = link.getAttribute('href');
+          if (targetId && targetId.startsWith('#')) {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        }
+      });
+    });
+
     // ページロード時にコンテンツを初期化し、表示
     window.onload = () => {
       initializeContent();
@@ -1850,4 +1860,3 @@
   </script>
 </body>
 </html>
-
