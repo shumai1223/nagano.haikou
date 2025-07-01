@@ -20,6 +20,9 @@
       overflow-x: hidden;
       line-height: 1.7; /* 行間を広げて読みやすく */
     }
+    body.menu-open {
+        overflow: hidden; /* モバイルメニュー表示時に背景をスクロールさせない */
+    }
 
     h1, h2, h3, h4 {
       font-family: 'Inter', 'Noto Sans JP', sans-serif;
@@ -32,7 +35,6 @@
       background: linear-gradient(90deg, #0f3460, #16213e); /* ヘッダーのグラデーション */
       padding: 80px 20px;
       text-align: center;
-      /* animation: fadeInDown 1s ease-out; <-- REMOVED, handled by h1 and p animations */
       position: relative;
       overflow: hidden;
       border-bottom-left-radius: 50px; /* 左下を丸く */
@@ -49,6 +51,7 @@
       background: rgba(167, 243, 208, 0.1);
       border-radius: 50%;
       filter: blur(50px);
+      animation: pulse 8s infinite alternate;
     }
     header::after {
       content: '';
@@ -60,6 +63,7 @@
       background: rgba(255, 255, 255, 0.05);
       border-radius: 50%;
       filter: blur(40px);
+      animation: pulse 10s infinite alternate-reverse;
     }
     header h1 {
       font-size: 4.5em; /* さらに大きく */
@@ -81,17 +85,20 @@
     /* Navigation specific styles */
     nav {
       background: rgba(15, 52, 96, 0.95); /* ナビゲーションの背景を少し濃く */
-      padding: 18px 0;
+      padding: 18px 20px; /* 左右にパディングを追加 */
       position: sticky;
       top: 0;
       z-index: 1000;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       border-bottom: 1px solid rgba(167, 243, 208, 0.2);
       display: flex; /* Flexboxでアイテムを配置 */
-      flex-wrap: nowrap; /* アイテムの折り返しを防ぐ */
       justify-content: center; /* 中央揃え */
+      align-items: center;
     }
-    nav a { /* デスクトップナビゲーションリンクのスタイル */
+    #desktop-nav {
+      display: none; /* モバイルでは非表示 */
+    }
+    #desktop-nav a { /* デスクトップナビゲーションリンクのスタイル */
       color: #bfdbfe;
       text-decoration: none;
       margin: 0 15px; /* マージンを調整 */
@@ -104,14 +111,14 @@
       outline-offset: 4px; /* フォーカス時のアウトラインのオフセット */
       outline: 2px solid transparent; /* デフォルトのアウトラインを透明に */
     }
-    nav a:hover {
+    #desktop-nav a:hover {
       transform: translateY(-3px) scale(1.05);
       color: #a7f3d0;
       background: rgba(167, 243, 208, 0.1);
       box-shadow: 0 0 15px rgba(167, 243, 208, 0.3);
       text-shadow: 0 0 8px #a7f3d0; /* Add text shadow for glow effect */
     }
-    nav a:focus-visible { /* キーボードフォーカス時のスタイル */
+    #desktop-nav a:focus-visible { /* キーボードフォーカス時のスタイル */
       outline: 2px solid #a7f3d0;
       box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5), 0 0 15px rgba(167, 243, 208, 0.5); /* Enhanced glow on focus */
     }
@@ -121,7 +128,6 @@
       max-width: 1100px;
       margin: 40px auto;
       padding: 40px 20px;
-      /* animation: fadeInUp 1.5s ease-out; <-- REMOVED */
       background: rgba(22, 33, 62, 0.7); /* メインコンテンツの背景 */
       border-radius: 20px;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
@@ -135,30 +141,35 @@
       background: rgba(15, 52, 96, 0.3); /* セクションの背景 */
       box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
       border: 1px solid rgba(167, 243, 208, 0.05);
-      opacity: 0; /* Initial state for section reveal animation */
-      transform: translateY(20px); /* Initial state for section reveal animation */
     }
+    /* === 小タイトルのスタイルを更新 === */
     h2 {
-      font-size: 3em; /* 少し大きく */
-      color: #a7f3d0;
-      border-left: 8px solid #a7f3d0;
-      padding-left: 20px;
-      margin-bottom: 30px;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+      font-size: 6.5em; /* フォントサイズをさらに大きく */
+      color: #e0e7ff; /* 基本色を白寄りに変更 */
+      padding-left: 15px; /* 左側にパディングを追加 */
+      margin-bottom: 50px; /* 余白を増やす */
+      text-shadow: 0 0 8px rgba(167, 243, 208, 0.6), 0 0 20px rgba(167, 243, 208, 0.4); /* グロー効果を強調 */
+      position: relative;
+      border-left: 8px solid #a7f3d0; /* 左側に縦線を追加 */
+      border-right: none; /* 右側の縦線は削除 */
+      padding-right: 0; /* 右側のパディングも削除 */
     }
+    /* 左側の縦線を削除するため、h2::before を削除 */
     p {
       color: #e0e7ff;
       font-size: 1.15em; /* フォントサイズを少し大きく */
       margin-bottom: 15px; /* 段落下の余白 */
     }
-    ul {
-      list-style: disc; /* リストのスタイル */
-      margin-left: 25px; /* リストのインデント */
+    /* === 箇条書きのスタイルを更新 === */
+    section ul {
+      list-style: disc; /* 標準のディスクマーカーを使用 */
+      margin-left: 25px; /* 左側のマージンでインデント */
       color: #e0e7ff;
       font-size: 1.1em;
     }
-    li {
-      margin-bottom: 8px; /* リストアイテム間の余白 */
+    section li {
+      margin-bottom: 12px; /* リストアイテム間の余白 */
+      padding-left: 10px; /* マーカーとのスペースを調整 */
     }
 
     /* Team section */
@@ -179,7 +190,7 @@
     .member:hover {
       transform: translateY(-12px) scale(1.02);
       background: #243c68; /* Slightly different hover color */
-      box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 15px rgba(167, 243, 208, 0.3); /* Subtle glow */
+      box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 15px (167, 243, 208, 0.3); /* Subtle glow */
     }
     .member h4 {
       font-size: 1.7em; /* 少し大きく */
@@ -330,12 +341,6 @@
       animation: spin 0.8s linear infinite;
     }
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-
     /* Footer */
     footer {
       background: #0f3460;
@@ -383,6 +388,81 @@
       box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5);
     }
 
+    /* === Mobile Menu Styles === */
+    #hamburger-btn {
+        position: fixed;
+        top: 18px;
+        right: 20px;
+        z-index: 1002;
+        background: none;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        display: none; /* JS will manage this */
+    }
+    .hamburger-line {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #e0e7ff;
+        border-radius: 3px;
+        margin: 6px 0;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.4s ease;
+    }
+    #hamburger-btn.is-active .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(7px, 7px);
+    }
+    #hamburger-btn.is-active .hamburger-line:nth-child(2) {
+        transform: scaleX(0);
+    }
+    #hamburger-btn.is-active .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    #mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(22, 33, 62, 0.98); /* 少し透明度を持たせる */
+        backdrop-filter: blur(5px);
+        z-index: 1001;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(-100%);
+        transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    #mobile-menu.is-open {
+        transform: translateY(0);
+    }
+    #mobile-menu a {
+        font-size: 2em;
+        color: #e0e7ff;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 15px 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    #mobile-menu.is-open a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /* Staggered animation delays for mobile menu links */
+    #mobile-menu.is-open a:nth-child(1) { transition-delay: 0.20s; }
+    #mobile-menu.is-open a:nth-child(2) { transition-delay: 0.25s; }
+    #mobile-menu.is-open a:nth-child(3) { transition-delay: 0.30s; }
+    #mobile-menu.is-open a:nth-child(4) { transition-delay: 0.35s; }
+    #mobile-menu.is-open a:nth-child(5) { transition-delay: 0.40s; }
+    #mobile-menu.is-open a:nth-child(6) { transition-delay: 0.45s; }
+    #mobile-menu.is-open a:nth-child(7) { transition-delay: 0.50s; }
+    #mobile-menu.is-open a:nth-child(8) { transition-delay: 0.55s; }
+
+
     /* Admin specific styles */
     #admin-section {
       display: none; /* 初期状態では非表示 */
@@ -398,19 +478,42 @@
       max-width: 900px; /* 最大幅を設定 */
       margin: 40px auto; /* 中央寄せ */
     }
+    /* === 管理者ページのタイトルから縦線を削除 === */
     #admin-section h2 {
       font-size: 2.5em;
       margin-bottom: 25px;
       color: #a7f3d0;
       text-align: center;
-      border-left: none; /* 管理画面ではボーダーを削除 */
-      padding-left: 0;
+      border-left: none; /* 縦線を削除 */
+      padding-left: 0; /* パディングを削除 */
+      border-right: none; /* 右側の縦線も削除 */
+      padding-right: 0; /* 右側のパディングも削除 */
+      text-shadow: 0 0 5px rgba(167, 243, 208, 0.5);
     }
     #admin-password-container {
       margin-top: 20px;
       text-align: center;
       width: 100%;
       max-width: 400px;
+    }
+    /* === パスワード表示機能のスタイル === */
+    .password-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .password-wrapper input {
+        padding-right: 45px; /* アイコン分のスペースを確保 */
+    }
+    #password-toggle-icon {
+        position: absolute;
+        right: 15px;
+        cursor: pointer;
+        color: #bfdbfe;
+        transition: color 0.3s;
+    }
+    #password-toggle-icon:hover {
+        color: #a7f3d0;
     }
     #admin-content {
       display: none;
@@ -427,6 +530,15 @@
       width: 100%;
       box-shadow: 0 6px 18px rgba(0,0,0,0.4);
       border: 1px solid rgba(167, 243, 208, 0.1);
+    }
+    .admin-feature-block h3 {
+        font-size: 1.5em;
+        margin-bottom: 5px;
+    }
+    .admin-feature-block p.description {
+        font-size: 0.9em;
+        color: #bfdbfe;
+        margin-bottom: 15px;
     }
     .admin-feature-block label {
       font-weight: 600;
@@ -456,7 +568,7 @@
       font-weight: 500;
       text-align: center;
     }
-    #discussion-points-list li {
+    #discussion-points-list li, #usage-ideas-list-admin li, #examples-ideas-list-admin li {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -466,28 +578,28 @@
       margin-bottom: 8px;
       border: 1px solid rgba(167, 243, 208, 0.1);
     }
-    #discussion-points-list li span {
+    #discussion-points-list li span, #usage-ideas-list-admin li span, #examples-ideas-list-admin li span {
       flex-grow: 1;
       color: #e0e7ff;
     }
-    #discussion-points-list li button {
+    #discussion-points-list li button, #usage-ideas-list-admin li button, #examples-ideas-list-admin li button {
       background: none;
       border: none;
       color: #ef4444;
       font-size: 1.2em;
       cursor: pointer;
       margin-left: 10px;
-      transition: color 0.3s;
+      transition: color 0.3s, background-color 0.3s;
       padding: 5px;
       border-radius: 5px;
       outline: 2px solid transparent;
       outline-offset: 2px;
     }
-    #discussion-points-list li button:hover {
+    #discussion-points-list li button:hover, #usage-ideas-list-admin li button:hover, #examples-ideas-list-admin li button:hover {
       color: #dc2626;
       background-color: rgba(239, 68, 68, 0.1);
     }
-    #discussion-points-list li button:focus-visible {
+    #discussion-points-list li button:focus-visible, #usage-ideas-list-admin li button:focus-visible, #examples-ideas-list-admin li button:focus-visible {
       outline: 2px solid #a7f3d0;
       box-shadow: 0 0 0 3px rgba(167, 243, 208, 0.5);
     }
@@ -645,14 +757,15 @@
     }
 
 
-    /* Keyframe animations */
-    @keyframes fadeInDown {
-      0% { opacity: 0; transform: translateY(-30px); }
-      100% { opacity: 1; transform: translateY(0); }
+    /* === Keyframe animations === */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.1; }
+        50% { transform: scale(1.2); opacity: 0.15; }
+        100% { transform: scale(1); opacity: 0.1; }
     }
     @keyframes slideInTop {
       0% { opacity: 0; transform: translateY(-50px); }
@@ -662,9 +775,35 @@
       0% { opacity: 0; transform: translateY(50px); }
       100% { opacity: 1; transform: translateY(0); }
     }
+    @keyframes fill-border {
+        from { height: 0%; }
+        to { height: 100%; }
+    }
+
+    /* === Scroll Animation Styles === */
+    .animated-item {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animated-item.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /* Staggered animation delays */
+    .animated-item.delay-1 { transition-delay: 0.1s; }
+    .animated-item.delay-2 { transition-delay: 0.2s; }
+    .animated-item.delay-3 { transition-delay: 0.3s; }
+    .animated-item.delay-4 { transition-delay: 0.4s; }
 
 
     /* Responsive adjustments */
+    @media (min-width: 769px) {
+        #desktop-nav {
+            display: flex;
+        }
+    }
+
     @media (max-width: 768px) {
       header {
         padding: 60px 15px;
@@ -677,14 +816,11 @@
       header p {
         font-size: 1.1em;
       }
-      nav { /* ナビゲーションバー自体はflex-startで左寄せに */
-        justify-content: center; /* 中央揃えに固定 */
-        padding: 18px 0; /* パディングを調整 */
+      nav {
+        justify-content: flex-end; /* ハンバーガーボタンを右に配置 */
       }
-      nav a { /* ナビゲーションリンクのスタイルを維持 */
-        margin: 5px 0;
-        font-size: 1em;
-        padding: 8px 15px;
+      #hamburger-btn {
+          display: block;
       }
       main {
         padding: 20px 15px;
@@ -697,10 +833,12 @@
         border-radius: 10px;
       }
       h2 {
-        font-size: 2.2em; /* スマホでは少し小さく */
-        border-left: 6px solid #a7f3d0;
-        padding-left: 15px;
-        margin-bottom: 20px;
+        font-size: 5em; /* スマホではさらに大きく */
+        border-left: 8px solid #a7f3d0; /* 左側に縦線を追加 */
+        padding-left: 15px; /* 左側にパディングを追加 */
+        border-right: none; /* 右側の縦線は削除 */
+        padding-right: 0; /* 右側のパディングも削除 */
+        margin-bottom: 35px; /* 余白を増やす */
       }
       p {
         font-size: 1.05em; /* スマホでは少し小さく */
@@ -776,7 +914,7 @@
         font-size: 1em;
       }
       h2 {
-        font-size: 1.8em;
+        font-size: 4.5em; /* さらに大きく */
       }
     }
   </style>
@@ -787,6 +925,25 @@
     <p>地域資源を未来へつなぐプロジェクト</p>
   </header>
   <nav>
+    <div id="desktop-nav">
+        <a href="#mission" aria-label="私たちの想い">私たちの想い</a>
+        <a href="#usage" aria-label="廃校の活用案">廃校の活用案</a>
+        <a href="#challenges" aria-label="廃校の現状と課題">廃校の現状と課題</a>
+        <a href="#examples" aria-label="活用事例">活用事例</a>
+        <a href="#nagano-details" aria-label="長野の魅力と地域性">長野の魅力</a>
+        <a href="#team" aria-label="チーム紹介">チーム紹介</a>
+        <a href="#contact" aria-label="お問い合わせ">お問い合わせ</a>
+        <a href="#" id="adminLink" aria-label="管理者ページへ">管理者</a>
+    </div>
+  </nav>
+
+  <button id="hamburger-btn" aria-label="メニューを開閉する" aria-expanded="false">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+  </button>
+
+  <div id="mobile-menu">
     <a href="#mission" aria-label="私たちの想い">私たちの想い</a>
     <a href="#usage" aria-label="廃校の活用案">廃校の活用案</a>
     <a href="#challenges" aria-label="廃校の現状と課題">廃校の現状と課題</a>
@@ -794,27 +951,27 @@
     <a href="#nagano-details" aria-label="長野の魅力と地域性">長野の魅力</a>
     <a href="#team" aria-label="チーム紹介">チーム紹介</a>
     <a href="#contact" aria-label="お問い合わせ">お問い合わせ</a>
-    <a href="#" id="adminLink" aria-label="管理者ページへ">管理者</a>
-  </nav>
+    <a href="#" id="adminLinkMobile" aria-label="管理者ページへ">管理者</a>
+  </div>
 
   <main id="main-content">
     <section id="mission">
-      <h2>私たちの想い</h2>
-      <div id="mission-content-container">
+      <h2 class="animated-item">私たちの想い</h2>
+      <div id="mission-content-container" class="animated-item delay-1">
         <!-- Content will be dynamically loaded here -->
       </div>
     </section>
 
     <section id="challenges">
-      <h2>廃校の現状と課題</h2>
-      <div id="challenges-content-container">
+      <h2 class="animated-item">廃校の現状と課題</h2>
+      <div id="challenges-content-container" class="animated-item delay-1">
         <!-- Content will be dynamically loaded here -->
       </div>
     </section>
 
     <section id="usage">
-      <h2>廃校の多様な活用案</h2>
-      <div id="usage-intro-container">
+      <h2 class="animated-item">廃校の多様な活用案</h2>
+      <div id="usage-intro-container" class="animated-item delay-1">
          <!-- Intro content will be dynamically loaded here -->
       </div>
       <div id="usage-ideas-container">
@@ -823,8 +980,8 @@
     </section>
 
     <section id="examples">
-      <h2>全国・長野県内の活用事例</h2>
-      <div id="examples-intro-container">
+      <h2 class="animated-item">全国・長野県内の活用事例</h2>
+      <div id="examples-intro-container" class="animated-item delay-1">
          <!-- Intro content will be dynamically loaded here -->
       </div>
       <div id="examples-ideas-container">
@@ -833,15 +990,15 @@
     </section>
 
     <section id="nagano-details">
-      <h2>長野の魅力と地域性</h2>
-      <div id="nagano-details-content-container">
+      <h2 class="animated-item">長野の魅力と地域性</h2>
+      <div id="nagano-details-content-container" class="animated-item delay-1">
         <!-- Content will be dynamically loaded here -->
       </div>
     </section>
 
     <section id="team">
-      <h2>プロジェクトメンバー</h2>
-      <div id="team-content-container">
+      <h2 class="animated-item">プロジェクトメンバー</h2>
+      <div id="team-content-container" class="animated-item delay-1">
          <!-- Intro content will be dynamically loaded here -->
       </div>
       <div class="team" id="team-members-container">
@@ -849,9 +1006,9 @@
       </div>
     </section>
     <section id="contact">
-      <h2>お問い合わせ</h2>
-      <p class="mb-6">プロジェクトに関するご質問やご意見は、以下のフォームからお寄せください。</p>
-      <form id="contact-form">
+      <h2 class="animated-item">お問い合わせ</h2>
+      <p class="mb-6 animated-item delay-1">プロジェクトに関するご質問やご意見は、以下のフォームからお寄せください。</p>
+      <form id="contact-form" class="animated-item delay-2">
         <label for="name" class="block mb-2 text-blue-200">お名前：</label>
         <input type="text" id="name" name="name" required aria-label="お名前を入力してください">
 
@@ -871,19 +1028,23 @@
   <div id="admin-section">
     <h2>管理者ページ</h2>
     <div id="admin-password-container">
-      <p class="mb-4">パスワードを入力してください：</p>
-      <input type="password" id="admin-password" placeholder="パスワード" aria-label="管理者パスワードを入力">
+      <p class="mb-4">管理者パスワードを入力してください：</p>
+      <div class="password-wrapper">
+        <input type="password" id="admin-password" placeholder="パスワード" aria-label="管理者パスワードを入力">
+        <span id="password-toggle-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        </span>
+      </div>
       <button id="admin-login-btn" class="btn-primary mt-4" aria-label="ログイン">ログイン</button>
       <p id="admin-message" class="mt-2 text-red-400" style="display: none;">パスワードが間違っています。</p>
     </div>
     <div id="admin-content">
       <div class="admin-feature-block">
+        <h3>議論の記録</h3>
+        <p class="description">プロジェクトに関する議論のテーマや詳細なメモを記録・管理します。</p>
         <label for="discussion-topic" class="block mb-2 text-blue-200 text-lg">議論テーマ：</label>
         <input type="text" id="discussion-topic" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:border-green-400 focus:ring focus:ring-green-400 focus:ring-opacity-50" placeholder="議論のテーマを入力" aria-label="議論のテーマ">
-      </div>
-
-      <div class="admin-feature-block mt-8">
-        <label for="admin-textarea" class="block mb-2 text-blue-200 text-lg">議論メモ / 詳細：</label>
+        <label for="admin-textarea" class="block mb-2 mt-4 text-blue-200 text-lg">議論メモ / 詳細：</label>
         <textarea id="admin-textarea" class="w-full min-h-[400px] p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:border-green-400 focus:ring focus:ring-green-400 focus:ring-opacity-50 resize-y" placeholder="ここに議論の詳細やメモを記述できます。" aria-label="議論の詳細やメモを記述するテキストエリア"></textarea>
         <div class="flex justify-end gap-4 mt-4">
           <button id="save-notes-btn" class="btn-secondary" aria-label="メモを保存">メモを保存</button>
@@ -891,13 +1052,14 @@
         </div>
       </div>
 
-      <div class="admin-feature-block mt-8">
-        <h3 class="text-xl font-semibold mb-4 text-blue-200">議論ポイント</h3>
+      <div class="admin-feature-block">
+        <h3>議論ポイントの管理</h3>
+        <p class="description">議論で出た重要なポイントをリストとして追加・管理します。</p>
         <div class="flex gap-2 mb-3">
           <input type="text" id="discussion-point-input" class="flex-grow p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:border-green-400 focus:ring focus:ring-green-400 focus:ring-opacity-50" placeholder="新しい議論ポイントを追加" aria-label="新しい議論ポイントを追加">
           <button id="add-point-btn" class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg transition duration-200" aria-label="ポイントを追加">追加</button>
         </div>
-        <ul id="discussion-points-list" class="list-disc ml-6 text-e0e7ff space-y-2">
+        <ul id="discussion-points-list" class="list-none ml-0 space-y-2">
           <!-- Discussion points will be dynamically added here -->
         </ul>
         <div class="flex justify-end mt-4">
@@ -905,8 +1067,9 @@
         </div>
       </div>
 
-      <div class="admin-feature-block mt-8">
-        <h3 class="text-xl font-semibold mb-4 text-blue-200">サイトコンテンツ管理</h3>
+      <div class="admin-feature-block">
+        <h3>サイトコンテンツ管理</h3>
+        <p class="description">ウェブサイトの各セクションのテキストやアイデアを直接編集します。</p>
 
         <div class="mt-4">
           <h4 class="text-lg text-blue-200 mb-2">主要セクションテキストの編集</h4>
@@ -932,7 +1095,7 @@
           <button id="add-usage-idea-btn" class="btn-secondary mt-2">活用案を追加</button>
           <div class="mt-4">
             <h5 class="text-md text-blue-200 mb-2">既存の活用案:</h5>
-            <ul id="usage-ideas-list-admin" class="list-disc ml-6 text-e0e7ff space-y-2">
+            <ul id="usage-ideas-list-admin" class="list-none ml-0 space-y-2">
               <!-- Dynamically loaded usage ideas for admin to manage -->
             </ul>
           </div>
@@ -947,7 +1110,7 @@
           <button id="add-example-idea-btn" class="btn-secondary mt-2">活用事例を追加</button>
           <div class="mt-4">
             <h5 class="text-md text-blue-200 mb-2">既存の活用事例:</h5>
-            <ul id="examples-ideas-list-admin" class="list-disc ml-6 text-e0e7ff space-y-2">
+            <ul id="examples-ideas-list-admin" class="list-none ml-0 space-y-2">
               <!-- Dynamically loaded example ideas for admin to manage -->
             </ul>
           </div>
@@ -955,7 +1118,8 @@
       </div>
 
       <div class="admin-feature-block mt-8 advanced-admin-feature">
-        <h3 class="text-xl font-semibold mb-4 text-blue-200">高度な管理機能</h3>
+        <h3>高度な管理機能</h3>
+        <p class="description">サイトの基本設定やユーザー管理など、より高度な操作を行います。</p>
         <div class="mt-4">
           <h4 class="text-lg text-blue-200 mb-2">サイト設定</h4>
           <label for="site-title-input" class="block mb-2 text-blue-200">サイトタイトル:</label>
@@ -971,7 +1135,7 @@
             <input type="text" id="user-name-input" class="flex-grow p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:border-green-400 focus:ring focus:ring-green-400 focus:ring-opacity-50" placeholder="新しいユーザー名" aria-label="新しいユーザー名を入力">
             <button id="add-user-btn" class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg transition duration-200" aria-label="ユーザーを追加">追加</button>
           </div>
-          <ul id="user-list" class="list-disc ml-6 text-e0e7ff space-y-2">
+          <ul id="user-list" class="list-none ml-0 space-y-2">
             <!-- Dummy users will be dynamically added here -->
           </ul>
         </div>
@@ -982,7 +1146,7 @@
             <input type="text" id="content-title-input" class="flex-grow p-3 rounded-md bg-gray-800 text-white border border-gray-600 focus:border-green-400 focus:ring focus:ring-green-400 focus:ring-opacity-50" placeholder="新しいコンテンツタイトル" aria-label="新しいコンテンツタイトルを入力">
             <button id="add-pending-content-btn" class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg shadow-lg transition duration-200" aria-label="コンテンツを追加">追加</button>
           </div>
-          <ul id="pending-content-list" class="list-disc ml-6 text-e0e7ff space-y-2">
+          <ul id="pending-content-list" class="list-none ml-0 space-y-2">
             <!-- Dummy pending content will be dynamically added here -->
           </ul>
         </div>
@@ -1103,10 +1267,19 @@
     const addExampleIdeaBtn = document.getElementById('add-example-idea-btn');
     const examplesIdeasListAdmin = document.getElementById('examples-ideas-list-admin');
 
+    // --- モバイルメニュー関連のDOM要素 ---
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+    const adminLinkMobile = document.getElementById('adminLinkMobile');
+
+    // --- パスワード表示機能関連のDOM要素 ---
+    const passwordToggleIcon = document.getElementById('password-toggle-icon');
 
    
-    const ADMIN_PASSWORD = "shibaura";
-    const ADV_ADMIN_PASSWORD = "naganohaikougroup";
+    // === パスワードの難読化 ===
+    const P_A = 'c2hpYmF1cmE='; // "shibaura" をBase64エンコード
+    const P_ADV = 'bmFnYW5vaGFpa291Z3JvdXA='; // "naganohaikougroup" をBase64エンコード
 
     let isAdvancedAdmin = false;
 
@@ -1138,7 +1311,7 @@
      * @param {function(boolean): void} callback - 確認結果を返すコールバック関数
      */
     function showConfirm(message, callback) {
-      customConfirmMessage.textContent = message;
+      customConfirmMessage.innerHTML = message; // innerHTMLを使用してHTMLタグを許容
       confirmCallback = callback;
       customConfirmDialog.classList.add('is-visible');
       customConfirmOkBtn.focus(); // OKボタンにフォーカス
@@ -1193,7 +1366,7 @@
 <p class="mt-4">長野県の人口は2001年のピークから減少の一途をたどり、2024年には200万人を下回ると予測されています。この人口減少と少子化の影響で、県内の廃校数は年々増加しており、地域社会に新たな課題を投げかけています。しかし、廃校は単なる負の遺産ではありません。かつて子どもたちの声が響き渡った学び舎は、地域文化の中心であり、新たな可能性を秘めた場所なのです。</p>
 <p class="mt-4">長野県は、雄大な北アルプスを始めとする豊かな自然、清らかな水、そして歴史と文化が息づく魅力的な地域です。この地の廃校を再利用することは、自然との共生、伝統の継承、そして新しいライフスタイルの提案に繋がると信じています。私たちは、長野の魅力を最大限に引き出し、持続可能な地域社会を築くことを目指します。</p>`,
       challenges: `長野県における廃校は、以下のようないくつかの深刻な課題を抱えています。
-<ul class="list-disc ml-6 mt-4">
+<ul class="mt-4">
 <li><strong>維持管理コストの増大</strong>: 電気、水道、施設の修繕、固定資産税など、使われていない建物にも維持費用がかかり、自治体や地域の財政を圧迫しています。老朽化が進むにつれて、このコストはさらに増大する傾向にあります。</li>
 <li><strong>老朽化と安全性の問題</strong>: 長期間使用されないことで建物の老朽化が急速に進み、倒壊の危険性や、不法侵入による事故、火災、または犯罪のリスクが増加しています。地域住民の安全確保が喫緊の課題です。</li>
 <li><strong>景観の悪化と地域イメージの低下</strong>: 雑草が生い茂り、窓ガラスが割れた荒廃した廃校は、地域の景観を著しく損ねます。これは、外部からの訪問者や移住希望者に対してネガティブな印象を与え、地域全体の魅力低下につながりかねません。</li>
@@ -1219,7 +1392,7 @@
       { id: 'u5', type: 'usage', title: '防災拠点・地域レジリエンス強化施設', description: '災害時には避難所や物資の備蓄拠点として機能させるとともに、平時には防災訓練や地域住民のコミュニティ形成の場として活用します。地域住民が防災意識を高め、有事の際に互いに助け合える強靭なコミュニティを築くための重要なインフラとなります。備蓄倉庫や簡易シャワー施設なども整備可能です。' },
       { id: 'u6', type: 'usage', title: '地域産業振興のための施設', description: '廃校の敷地や建物を活用し、地域の特産品加工施設、地酒の醸造所、クラフトビールのブルワリー、または小規模な工場として転用します。これにより、新たな雇用を創出し、地域経済の活性化に直接貢献します。製品の直売所や体験コーナーを併設することで、観光客の誘致にも繋がります。' },
       { id: 'e1', type: 'examples', title: '道の駅「きらら289」（福島県南会津町）', description: '旧南郷小学校の校舎を改修し、道の駅として生まれ変わりました。地域の特産品販売、レストラン、休憩スペースに加え、旧体育館を「木育施設」として活用し、子どもたちが木材と触れ合いながら遊べる場となっています。地域の交流促進と観光客誘致に成功した好例です。' },
-      { id: 'e2', type: 'examples', title: '「ちいさなせかい」（長野県大町市）', description: '旧美麻小学校を利用した宿泊施設。校舎の雰囲気を残しつつ、モダンなデザインと快適性を両立させ、ワーケーションや合宿、イベント利用にも対応しています。併設されたカフェは、地域住民や訪問者の交流の場としても機能し、地域に新たな賑わいをもたらしています。<p class="mt-2">この事例は、長野県が持つ自然の美しさと静寂な環境が、都市部の喧騒から離れて仕事や休暇を過ごしたい人々に新たな価値を提供できることを示しています。特に、美しい星空や豊かな森林は、リラックスできる滞在を求める人々に魅力的です。</p>' },
+      { id: 'e2', type: 'examples', title: '「ちいさなせかい」（長野県大町市）', description: '旧美麻小学校を利用した宿泊施設。校舎の雰囲気を残しつつ、モダンなデザインと快適性を両立させ、ワーケーションや合宿、イベント利用にも対応しています。併設されたカフェは、地域住民や訪問者の交流の場としても機能し、地域に新たな賑わいをもたらしています。<p class="mt-2">この事例は、長野県が持つ自然の美しさ、静寂な環境、そして美しい星空や豊かな森林が、都市部の喧騒から離れて仕事や休暇を過ごしたい人々に新たな価値を提供できることを示しています。</p>' },
       { id: 'e3', type: 'examples', title: '「星と森のロマントピア」（青森県弘前市）', description: '旧小学校の跡地に建設された天文台を核とする総合レジャー施設。宿泊施設、温泉、キャンプ場なども備え、星空観測をテーマにしたユニークな体験を提供しています。これにより、広範囲からの観光客を誘致し、地域の観光振興に大きく貢献しています。' },
       { id: 'e4', type: 'examples', title: '旧日義小学校「きそむら体験交流館」（長野県木曽町）', description: '木曽町の旧日義小学校は、地域住民と観光客が交流できる体験交流館として活用されています。木工体験や郷土料理作りなど、木曽の文化を体験できるプログラムが提供されており、地域の魅力を発信する拠点となっています。' },
       { id: 'e5', type: 'examples', title: '「スタジオジブリ風の谷のナウシカ」イメージのアトリエ（長野県下諏訪町）', description: '具体的な施設名ではないですが、長野県内には廃校をアートスタジオやアトリエとして活用し、自然豊かな環境で創作活動に集中できるクリエイターが移住・活動する例が増えています。地域の風景と調和したアート活動は、新たな地域ブランドの創出にも繋がっています。' }
@@ -1266,144 +1439,115 @@
       // 活用案と活用事例を動的にレンダリング
       usageIdeasContainer.innerHTML = '';
       examplesIdeasContainer.innerHTML = '';
+      let ideaDelay = 2;
       storedIdeas.forEach(idea => {
         const ideaDiv = document.createElement('div');
-        ideaDiv.className = 'idea';
+        ideaDiv.className = `idea animated-item delay-${ideaDelay % 4 + 1}`; // アニメーションクラスを追加
         ideaDiv.innerHTML = `<h3>${idea.title}</h3><p>${idea.description}</p>`;
         if (idea.type === 'usage') {
           usageIdeasContainer.appendChild(ideaDiv);
         } else if (idea.type === 'examples') {
           examplesIdeasContainer.appendChild(ideaDiv);
         }
+        ideaDelay++;
       });
 
       // チームメンバーを動的にレンダリング
       teamMembersContainer.innerHTML = '';
+      let memberDelay = 2;
       storedTeamMembers.forEach(member => {
         const memberDiv = document.createElement('div');
-        memberDiv.className = 'member';
+        memberDiv.className = `member animated-item delay-${memberDelay % 2 + 1}`; // アニメーションクラスを追加
         memberDiv.innerHTML = `<h4>${member.name}</h4><p>${member.role}</p>`;
         teamMembersContainer.appendChild(memberDiv);
+        memberDelay++;
       });
-
-      // 各セクションにアニメーションを適用（管理者ページ以外）
-      if (adminSection.style.display !== "flex") {
-        const sections = document.querySelectorAll('main section');
-        sections.forEach((section, index) => {
-            // アニメーションをリセットしてから再適用
-            section.style.animation = 'none';
-            section.offsetHeight; // 強制的にリフローを発生させる
-            section.style.animation = null; // アニメーションプロパティをクリア
-
-            section.style.animation = `fadeInUp 1s ease-out ${index * 0.2}s forwards`;
-        });
-      }
     }
 
     // --- 管理者ページ機能 ---
 
-    // ローカルストレージから管理者コンテンツを読み込む
     function loadAdminContent() {
       const savedTopic = localStorage.getItem("adminDiscussionTopic");
       const savedNotes = localStorage.getItem("adminDiscussionNotes");
       const savedPoints = JSON.parse(localStorage.getItem("adminDiscussionPoints")) || [];
       const storedContent = JSON.parse(localStorage.getItem('mainContentData'));
       const storedIdeas = JSON.parse(localStorage.getItem('ideasData'));
-      const storedTeamMembers = JSON.parse(localStorage.getItem('teamMembersData')); // Team members in admin not implemented yet.
+      const storedTeamMembers = JSON.parse(localStorage.getItem('teamMembersData')); 
 
       if (savedTopic) discussionTopicInput.value = savedTopic;
       if (savedNotes) adminTextarea.value = savedNotes;
       renderDiscussionPoints(savedPoints);
 
-      // 主要コンテンツエディタに内容をセット
       missionTextEditor.value = storedContent.mission;
       challengesTextEditor.value = storedContent.challenges;
       usageIntroEditor.value = storedContent.usageIntro;
       examplesIntroEditor.value = storedContent.examplesIntro;
       naganoDetailsEditor.value = storedContent.naganoDetails;
 
-
-      // 高度管理機能の初期表示 (元からあったもの)
       siteTitleInput.value = storedContent.siteTitle;
       welcomeMessageInput.value = storedContent.welcomeMessage;
       renderUserList(JSON.parse(localStorage.getItem("adminUsers")) || ["ユーザーA", "ユーザーB", "ユーザーC"]);
       renderPendingContent(JSON.parse(localStorage.getItem("pendingContent")) || ["新規提案書", "イベント企画案"]);
 
-      // MFAとセッションの情報は通常サーバーから取得しますが、ここでは仮の値を表示
       mfaStatusSpan.textContent = localStorage.getItem("mfaEnabled") === "true" ? "有効" : "無効";
       activeSessionsSpan.textContent = localStorage.getItem("activeSessions") || "1";
       recentLogCode.textContent = localStorage.getItem("recentLog") || "ログがありません";
 
-      // 高度管理者モードの場合のみ高度な管理機能を表示
       if (isAdvancedAdmin) {
           advancedAdminFeatures.forEach(feature => feature.style.display = 'block');
       } else {
           advancedAdminFeatures.forEach(feature => feature.style.display = 'none');
       }
-
-      // 活用案・活用事例の管理リストをレンダリング
       renderIdeaManagementLists(storedIdeas);
     }
 
-    // ディスカッションポイントをリストにレンダリングする関数
     function renderDiscussionPoints(points) {
-      discussionPointsList.innerHTML = ""; // 既存のポイントをクリア
+      discussionPointsList.innerHTML = "";
       points.forEach((point, index) => {
         const li = document.createElement("li");
-        li.className = "flex items-center justify-between py-1 px-2 rounded-md bg-gray-700 mb-1"; // Tailwind classes for styling
         li.innerHTML = `
-          <span class="flex-grow text-e0e7ff">${point}</span>
-          <button class="ml-4 text-red-400 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50 rounded-full p-1" data-index="${index}" aria-label="この議論ポイントを削除">
-              &times;
-          </button>
+          <span>${point}</span>
+          <button data-index="${index}" aria-label="この議論ポイントを削除">&times;</button>
         `;
         discussionPointsList.appendChild(li);
       });
     }
 
-    // ユーザーリストをレンダリングする関数
     function renderUserList(users) {
         userList.innerHTML = "";
         users.forEach((user, index) => {
             const li = document.createElement("li");
             li.innerHTML = `
-                <span class="flex-grow">${user}</span>
-                <button class="ml-4 text-red-400 hover:text-red-600 delete-user-btn" data-index="${index}" aria-label="このユーザーを削除">
-                    &times;
-                </button>
+                <span>${user}</span>
+                <button class="delete-user-btn" data-index="${index}" aria-label="このユーザーを削除">&times;</button>
             `;
             userList.appendChild(li);
         });
     }
 
-    // 未承認コンテンツリストをレンダリングする関数
     function renderPendingContent(contents) {
         pendingContentList.innerHTML = "";
         contents.forEach((content, index) => {
             const li = document.createElement("li");
             li.innerHTML = `
-                <span class="flex-grow">${content}</span>
-                <button class="ml-4 text-green-400 hover:text-green-600 approve-content-btn" data-index="${index}" aria-label="このコンテンツを承認">
-                    承認
-                </button>
+                <span>${content}</span>
+                <button class="approve-content-btn" data-index="${index}" aria-label="このコンテンツを承認">承認</button>
             `;
             pendingContentList.appendChild(li);
         });
     }
 
-    // 活用案・活用事例の管理リストをレンダリング
     function renderIdeaManagementLists(ideas) {
       usageIdeasListAdmin.innerHTML = '';
       examplesIdeasListAdmin.innerHTML = '';
 
       ideas.forEach(idea => {
         const li = document.createElement('li');
-        li.className = 'flex items-center justify-between py-1 px-2 rounded-md bg-gray-700 mb-1';
         li.innerHTML = `
-          <span class="flex-grow text-e0e7ff">${idea.title}</span>
+          <span>${idea.title}</span>
           <div>
-            <button class="ml-4 text-blue-400 hover:text-blue-600 edit-idea-btn" data-id="${idea.id}" data-type="${idea.type}" aria-label="このアイデアを編集">編集</button>
-            <button class="ml-2 text-red-400 hover:text-red-600 delete-idea-btn" data-id="${idea.id}" data-type="${idea.type}" aria-label="このアイデアを削除">削除</button>
+            <button class="edit-idea-btn" data-id="${idea.id}" data-type="${idea.type}" aria-label="このアイデアを編集">編集</button>
+            <button class="delete-idea-btn" data-id="${idea.id}" data-type="${idea.type}" aria-label="このアイデアを削除">削除</button>
           </div>
         `;
         if (idea.type === 'usage') {
@@ -1412,23 +1556,19 @@
           examplesIdeasListAdmin.appendChild(li);
         }
       });
-
-      // イベントリスナーを再設定 (イベント委譲)
-      usageIdeasListAdmin.querySelectorAll('.edit-idea-btn').forEach(btn => btn.onclick = editIdeaHandler);
-      usageIdeasListAdmin.querySelectorAll('.delete-idea-btn').forEach(btn => btn.onclick = deleteIdeaHandler);
-      examplesIdeasListAdmin.querySelectorAll('.edit-idea-btn').forEach(btn => btn.onclick = editIdeaHandler);
-      examplesIdeasListAdmin.querySelectorAll('.delete-idea-btn').forEach(btn => btn.onclick = deleteIdeaHandler);
     }
 
-    // アイデア編集モーダルを表示する関数
     function showEditIdeaModal(id, type, title, description) {
-      showConfirm(`
-        <h4 class="text-xl font-semibold mb-4 text-blue-200">アイデアを編集</h4>
-        <label for="edit-idea-title" class="block mb-2 text-blue-200 text-left">タイトル:</label>
-        <input type="text" id="edit-idea-title" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-600 mb-4" value="${title}" aria-label="アイデアタイトルを編集">
-        <label for="edit-idea-description" class="block mb-2 text-blue-200 text-left">説明:</label>
-        <textarea id="edit-idea-description" class="editable-content-textarea" rows="5" aria-label="アイデア説明を編集">${description}</textarea>
-      `, (result) => {
+      const modalHtml = `
+        <div style="text-align: left; width: 100%;">
+          <h4 class="text-xl font-semibold mb-4 text-blue-200" style="text-align: center;">アイデアを編集</h4>
+          <label for="edit-idea-title" class="block mb-2 text-blue-200">タイトル:</label>
+          <input type="text" id="edit-idea-title" class="w-full p-3 rounded-md bg-gray-800 text-white border border-gray-600 mb-4" value="${title}" aria-label="アイデアタイトルを編集">
+          <label for="edit-idea-description" class="block mb-2 text-blue-200">説明:</label>
+          <textarea id="edit-idea-description" class="editable-content-textarea" style="min-height: 120px;" rows="5" aria-label="アイデア説明を編集">${description}</textarea>
+        </div>
+      `;
+      showConfirm(modalHtml, (result) => {
         if (result) {
           const editedTitle = document.getElementById('edit-idea-title').value;
           const editedDescription = document.getElementById('edit-idea-description').value;
@@ -1438,27 +1578,26 @@
             ideas[ideaIndex] = { id, type, title: editedTitle, description: editedDescription };
             localStorage.setItem('ideasData', JSON.stringify(ideas));
             showAlert('アイデアが更新されました！');
-            loadSiteContent(); // サイトの表示を更新
-            loadAdminContent(); // 管理者ページのリストを更新
+            loadSiteContent();
+            loadAdminContent();
           }
         }
       });
-      // モーダル内の要素に値を設定 (confirmモーダル内の要素IDを使って直接アクセス)
-      // 注意: showConfirmがinnerHTMLを設定する前にこれらの要素が存在しないため、setTimeoutで遅延させるか、DOM操作後に設定する必要がある
-      // または、カスタム確認ダイアログのHTMLを直接操作するのではなく、別の専用編集モーダルを用意する方が堅牢
-      // ここでは簡易的にsetTimeoutを使用しますが、複雑な場合は専用モーダル推奨
-      setTimeout(() => {
-        const editIdeaTitleElem = document.getElementById('edit-idea-title');
-        const editIdeaDescriptionElem = document.getElementById('edit-idea-description');
-        if (editIdeaTitleElem) editIdeaTitleElem.value = title;
-        if (editIdeaDescriptionElem) editIdeaDescriptionElem.value = description;
-      }, 100);
     }
+    
+    usageIdeasListAdmin.addEventListener('click', (e) => {
+        if (e.target.closest('.edit-idea-btn')) editIdeaHandler(e.target.closest('.edit-idea-btn'));
+        if (e.target.closest('.delete-idea-btn')) deleteIdeaHandler(e.target.closest('.delete-idea-btn'));
+    });
+    examplesIdeasListAdmin.addEventListener('click', (e) => {
+        if (e.target.closest('.edit-idea-btn')) editIdeaHandler(e.target.closest('.edit-idea-btn'));
+        if (e.target.closest('.delete-idea-btn')) deleteIdeaHandler(e.target.closest('.delete-idea-btn'));
+    });
 
-    // 編集ボタンのハンドラー
-    function editIdeaHandler(e) {
-      const id = e.target.dataset.id;
-      const type = e.target.dataset.type;
+
+    function editIdeaHandler(button) {
+      const id = button.dataset.id;
+      const type = button.dataset.type;
       const ideas = JSON.parse(localStorage.getItem('ideasData'));
       const ideaToEdit = ideas.find(idea => idea.id === id && idea.type === type);
       if (ideaToEdit) {
@@ -1466,49 +1605,50 @@
       }
     }
 
-    // 削除ボタンのハンドラー
-    function deleteIdeaHandler(e) {
-      const id = e.target.dataset.id;
-      const type = e.target.dataset.type;
+    function deleteIdeaHandler(button) {
+      const id = button.dataset.id;
+      const type = button.dataset.type;
       showConfirm('このアイデアを削除しますか？', (result) => {
         if (result) {
           let ideas = JSON.parse(localStorage.getItem('ideasData'));
           ideas = ideas.filter(idea => !(idea.id === id && idea.type === type));
           localStorage.setItem('ideasData', JSON.stringify(ideas));
           showAlert('アイデアが削除されました！');
-          loadSiteContent(); // サイトの表示を更新
-          loadAdminContent(); // 管理者ページのリストを更新
+          loadSiteContent();
+          loadAdminContent();
         }
       });
     }
 
-    // 管理者リンククリック時の処理 (デスクトップ版)
-    adminLink.addEventListener("click", (e) => {
-      e.preventDefault(); // デフォルトのリンク動作をキャンセル
-      mainContent.style.display = "none"; // メインコンテンツを非表示
-      adminSection.style.display = "flex"; // 管理者セクションを表示
-      adminPasswordContainer.style.display = "block"; // パスワード入力を表示
-      adminContent.style.display = "none"; // 管理者コンテンツを非表示
-      adminPasswordInput.value = ""; // パスワード入力欄をクリア
-      adminMessage.style.display = "none"; // エラーメッセージを非表示
-      adminPasswordInput.focus(); // パスワード入力にフォーカス
-      loadAdminContent(); // 管理者コンテンツを読み込む (初期状態では高度な機能は非表示)
+    function openAdminPanel(e) {
+        e.preventDefault();
+        mainContent.style.display = "none";
+        adminSection.style.display = "flex";
+        adminPasswordContainer.style.display = "block";
+        adminContent.style.display = "none";
+        adminPasswordInput.value = "";
+        adminMessage.style.display = "none";
+        adminPasswordInput.focus();
+        loadAdminContent();
+    }
+
+    adminLink.addEventListener("click", openAdminPanel);
+    adminLinkMobile.addEventListener("click", (e) => {
+        closeMobileMenu();
+        openAdminPanel(e);
     });
 
-    // ログインボタンクリック時の処理
     adminLoginBtn.addEventListener("click", () => {
-      showLoading(adminLoginBtn); // ローディング開始
-
-      setTimeout(() => { // ダミーの処理遅延
+      showLoading(adminLoginBtn);
+      setTimeout(() => {
         const enteredPassword = adminPasswordInput.value.trim();
-        if (enteredPassword === ADMIN_PASSWORD || enteredPassword === ADV_ADMIN_PASSWORD) {
-          isAdvancedAdmin = (enteredPassword === ADV_ADMIN_PASSWORD);
-
+        // === パスワードをデコードして比較 ===
+        if (enteredPassword === atob(P_A) || enteredPassword === atob(P_ADV)) {
+          isAdvancedAdmin = (enteredPassword === atob(P_ADV));
           adminPasswordContainer.style.display = "none";
           adminContent.style.display = "flex";
           adminMessage.style.display = "none";
           document.getElementById("admin-textarea").focus();
-
           if (isAdvancedAdmin) {
             adminSection.classList.add("advanced-admin");
             showAlert("高度管理者モードでログインしました。");
@@ -1516,50 +1656,43 @@
             adminSection.classList.remove("advanced-admin");
             showAlert("管理者としてログインしました。");
           }
-          loadAdminContent(); // ログイン成功時にコンテンツを再ロードして表示を更新
+          loadAdminContent();
         } else {
           adminMessage.style.display = "block";
         }
-        hideLoading(adminLoginBtn); // ローディング終了
-      }, 1000); // 1秒間のダミー遅延
+        hideLoading(adminLoginBtn);
+      }, 1000);
     });
 
-    // パスワード入力で Enter キーでもログイン
     adminPasswordInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
-        e.preventDefault(); // フォームの送信を防ぐ
+        e.preventDefault();
         adminLoginBtn.click();
       }
     });
 
-    // 戻るボタンクリック時の処理 (管理者ページからメインページへ)
     adminBackBtn.addEventListener("click", () => {
-      adminSection.style.display = "none"; // 管理者セクションを非表示
-      mainContent.style.display = "block"; // メインコンテンツを表示
-      adminPasswordContainer.style.display = "block"; // パスワード入力を再表示
-      adminContent.style.display = "none"; // 管理者コンテンツを非表示
-      adminMessage.style.display = "none"; // メッセージを非表示
-      isAdvancedAdmin = false; // 管理者権限をリセット
-      // 管理者ページのリストをクリア (DOMから削除)
+      adminSection.style.display = "none";
+      mainContent.style.display = "block";
+      adminPasswordContainer.style.display = "block";
+      adminContent.style.display = "none";
+      adminMessage.style.display = "none";
+      isAdvancedAdmin = false;
       discussionPointsList.innerHTML = "";
       userList.innerHTML = "";
       pendingContentList.innerHTML = "";
       usageIdeasListAdmin.innerHTML = "";
       examplesIdeasListAdmin.innerHTML = "";
-
-      // メインコンテンツの最初のセクションにスクロールして戻る
       document.getElementById("mission").scrollIntoView({ behavior: 'smooth' });
-      loadSiteContent(); // Main content re-animated on return from admin
+      loadSiteContent();
     });
 
-    // メモ保存ボタンクリック時の処理
     saveNotesBtn.addEventListener("click", () => {
       localStorage.setItem("adminDiscussionTopic", discussionTopicInput.value);
       localStorage.setItem("adminDiscussionNotes", adminTextarea.value);
       showAlert("メモとテーマが保存されました！");
     });
 
-    // メモクリアボタンクリック時の処理
     clearNotesBtn.addEventListener("click", () => {
       showConfirm("メモとテーマをクリアしますか？", (result) => {
         if (result) {
@@ -1572,7 +1705,6 @@
       });
     });
 
-    // 議論ポイント追加ボタンクリック時の処理
     addPointBtn.addEventListener("click", () => {
       const pointText = discussionPointInput.value.trim();
       if (pointText) {
@@ -1586,7 +1718,6 @@
       }
     });
 
-    // 議論ポイント削除（イベント委譲を使用）
     discussionPointsList.addEventListener("click", (e) => {
       if (e.target.tagName === "BUTTON" && e.target.hasAttribute("data-index")) {
         showConfirm("この議論ポイントを削除しますか？", (result) => {
@@ -1602,7 +1733,6 @@
       }
     });
 
-    // 全議論ポイントクリアボタンクリック時の処理
     clearPointsBtn.addEventListener("click", () => {
       showConfirm("全ての議論ポイントをクリアしますか？", (result) => {
         if (result) {
@@ -1613,9 +1743,6 @@
       });
     });
 
-    // --- サイトコンテンツ管理機能 ---
-
-    // 主要コンテンツ保存ボタン
     saveMainContentBtn.addEventListener('click', () => {
       const currentContent = JSON.parse(localStorage.getItem('mainContentData'));
       currentContent.mission = missionTextEditor.value;
@@ -1625,61 +1752,54 @@
       currentContent.naganoDetails = naganoDetailsEditor.value;
       localStorage.setItem('mainContentData', JSON.stringify(currentContent));
       showAlert('主要コンテンツが保存されました！');
-      loadSiteContent(); // サイトの表示を更新
+      loadSiteContent();
     });
 
-    // 新しい活用案を追加
     addUsageIdeaBtn.addEventListener('click', () => {
       const title = newUsageIdeaTitleInput.value.trim();
       const description = newUsageIdeaDescriptionInput.value.trim();
       if (title && description) {
         let ideas = JSON.parse(localStorage.getItem('ideasData'));
-        const newId = 'u' + (ideas.filter(i => i.type === 'usage').length + 1); // Simple ID generation
+        const newId = 'u' + Date.now();
         ideas.push({ id: newId, type: 'usage', title, description });
         localStorage.setItem('ideasData', JSON.stringify(ideas));
         showAlert('新しい活用案が追加されました！');
         newUsageIdeaTitleInput.value = '';
         newUsageIdeaDescriptionInput.value = '';
         loadSiteContent();
-        loadAdminContent(); // 管理者ページのリストを更新
+        loadAdminContent();
       } else {
         showAlert('タイトルと説明の両方を入力してください。');
       }
     });
 
-    // 新しい活用事例を追加
     addExampleIdeaBtn.addEventListener('click', () => {
       const title = newExampleIdeaTitleInput.value.trim();
       const description = newExampleIdeaDescriptionInput.value.trim();
       if (title && description) {
         let ideas = JSON.parse(localStorage.getItem('ideasData'));
-        const newId = 'e' + (ideas.filter(i => i.type === 'examples').length + 1); // Simple ID generation
+        const newId = 'e' + Date.now();
         ideas.push({ id: newId, type: 'examples', title, description });
         localStorage.setItem('ideasData', JSON.stringify(ideas));
         showAlert('新しい活用事例が追加されました！');
         newExampleIdeaTitleInput.value = '';
         newExampleIdeaDescriptionInput.value = '';
         loadSiteContent();
-        loadAdminContent(); // 管理者ページのリストを更新
+        loadAdminContent();
       } else {
         showAlert('タイトルと説明の両方を入力してください。');
       }
     });
 
-
-    // --- 高度な管理機能の処理 (変更なし) ---
-
-    // サイト設定更新
     updateSiteSettingsBtn.addEventListener("click", () => {
         const currentContent = JSON.parse(localStorage.getItem('mainContentData'));
         currentContent.siteTitle = siteTitleInput.value;
         currentContent.welcomeMessage = welcomeMessageInput.value;
         localStorage.setItem("mainContentData", JSON.stringify(currentContent));
         showAlert("サイト設定が更新されました！");
-        loadSiteContent(); // サイトの表示を更新
+        loadSiteContent();
     });
 
-    // ユーザー追加
     addUserBtn.addEventListener("click", () => {
         const userName = userNameInput.value.trim();
         if (userName) {
@@ -1694,7 +1814,6 @@
         }
     });
 
-    // ユーザー削除 (イベント委譲)
     userList.addEventListener("click", (e) => {
         if (e.target.classList.contains("delete-user-btn")) {
             showConfirm("このユーザーを削除しますか？", (result) => {
@@ -1711,7 +1830,6 @@
         }
     });
 
-    // 未承認コンテンツ追加
     addPendingContentBtn.addEventListener("click", () => {
         const contentTitle = contentTitleInput.value.trim();
         if (contentTitle) {
@@ -1726,7 +1844,6 @@
         }
     });
 
-    // 未承認コンテンツ承認 (イベント委譲)
     pendingContentList.addEventListener("click", (e) => {
         if (e.target.classList.contains("approve-content-btn")) {
             showConfirm("このコンテンツを承認しますか？", (result) => {
@@ -1743,104 +1860,86 @@
         }
     });
 
-    // 既存の高度管理機能のダミー処理 (変更なし)
     enableMfaBtn.addEventListener("click", () => {
-      confirm("二要素認証を有効にしますか？", (result) => {
+      showConfirm("二要素認証を有効にしますか？", (result) => {
         if (result) {
           localStorage.setItem("mfaEnabled", "true");
           mfaStatusSpan.textContent = "有効";
-          alert("二要素認証が有効になりました。");
+          showAlert("二要素認証が有効になりました。");
         }
       });
     });
 
     terminateSessionBtn.addEventListener("click", () => {
-      confirm("全てのアクティブセッションを終了しますか？", (result) => {
+      showConfirm("全てのアクティブセッションを終了しますか？", (result) => {
         if (result) {
-          localStorage.setItem("activeSessions", "1"); // 自分のセッションのみ残る想定
+          localStorage.setItem("activeSessions", "1");
           activeSessionsSpan.textContent = "1";
-          alert("全セッションが終了されました。");
+          showAlert("全セッションが終了されました。");
         }
       });
     });
 
     viewLogBtn.addEventListener("click", () => {
-      // 実際にはサーバーからログを取得
       const dummyLog = `[${new Date().toLocaleString()}] User 'admin' logged in.`;
       localStorage.setItem("recentLog", dummyLog);
       recentLogCode.textContent = dummyLog;
-      alert("最新のシステムログを表示しました。");
+      showAlert("最新のシステムログを表示しました。");
     });
 
-    // --- お問い合わせフォームの簡易検証 ---
     const contactForm = document.getElementById('contact-form');
     const formMessage = document.getElementById('form-message');
 
     contactForm.addEventListener('submit', function(e) {
-      e.preventDefault(); // デフォルトの送信を防止
-
-      showLoading(contactSubmitBtn); // ローディング開始
-
-      setTimeout(() => { // ダミーの処理遅延
+      e.preventDefault();
+      showLoading(contactSubmitBtn);
+      setTimeout(() => {
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
 
         if (!name || !email || !message) {
           formMessage.style.display = 'block';
-          formMessage.style.color = '#ef4444'; /* Tailwind red-500 */
+          formMessage.style.color = '#ef4444';
           formMessage.textContent = '全ての必須項目を入力してください。';
         } else {
           formMessage.style.display = 'block';
-          formMessage.style.color = '#a7f3d0'; /* Tailwind green-300 */
+          formMessage.style.color = '#a7f3d0';
           formMessage.textContent = 'お問い合わせありがとうございます！メッセージが送信されました。';
-          contactForm.reset(); // フォームをリセット
+          contactForm.reset();
         }
-        hideLoading(contactSubmitBtn); // ローディング終了
-      }, 1500); // 1.5秒間のダミー遅延
+        hideLoading(contactSubmitBtn);
+      }, 1500);
     });
 
-    // 入力フィールドのフォーカスが外れたときにエラーメッセージをリセット
     document.querySelectorAll('#contact-form input, #contact-form textarea').forEach(input => {
       input.addEventListener('input', () => {
         formMessage.style.display = 'none';
       });
     });
 
-    // --- スクロールトップボタン ---
     const scrollToTopBtn = document.getElementById("scrollToTopBtn");
 
-    // スクロールイベントリスナーを追加
     window.onscroll = function() {
-      // ページのスクロール量に応じてボタンの表示を切り替える
-      // 管理者セクションが表示されている場合はボタンを非表示
       if (adminSection.style.display === "flex") {
         scrollToTopBtn.style.display = "none";
       } else if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        scrollToTopBtn.style.display = "block"; // スクロール量が300pxを超えたら表示
+        scrollToTopBtn.style.display = "block";
       } else {
-        scrollToTopBtn.style.display = "none"; // そうでなければ非表示
+        scrollToTopBtn.style.display = "none";
       }
     };
 
-    // ボタンがクリックされたときの処理
     scrollToTopBtn.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // ナビゲーションリンクのクリックイベントを処理
-    document.querySelectorAll('nav a:not(#adminLink)').forEach(link => {
+    document.querySelectorAll('#desktop-nav a:not(#adminLink)').forEach(link => {
       link.addEventListener('click', (e) => {
-        // 管理者画面が表示されている場合は、メインコンテンツを表示してからスクロール
         if (adminSection.style.display === 'flex') {
           e.preventDefault();
           mainContent.style.display = 'block';
           adminSection.style.display = 'none';
-          
-          // リンク先のセクションにスクロール
           const targetId = link.getAttribute('href');
           if (targetId && targetId.startsWith('#')) {
             const targetElement = document.querySelector(targetId);
@@ -1852,10 +1951,75 @@
       });
     });
 
-    // ページロード時にコンテンツを初期化し、表示
+    // --- スクロールアニメーションのロジック ---
+    const setupScrollAnimations = () => {
+        const animatedItems = document.querySelectorAll('.animated-item');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // 一度表示されたら監視を停止
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1 // 10%表示されたら発火
+        });
+
+        animatedItems.forEach(item => {
+            observer.observe(item);
+        });
+    };
+
+    // --- モバイルメニューのロジック ---
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('is-open');
+        hamburgerBtn.classList.remove('is-active');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
+    }
+
+    hamburgerBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('is-open');
+        hamburgerBtn.classList.toggle('is-active');
+        hamburgerBtn.setAttribute('aria-expanded', isOpen);
+        document.body.classList.toggle('menu-open');
+    });
+
+    mobileMenuLinks.forEach(link => {
+        if (link.id !== 'adminLinkMobile') {
+            link.addEventListener('click', () => {
+                closeMobileMenu();
+            });
+        }
+    });
+
+    // --- パスワード表示切り替えのロジック ---
+    passwordToggleIcon.addEventListener('mousedown', () => {
+        adminPasswordInput.type = 'text';
+    });
+    passwordToggleIcon.addEventListener('mouseup', () => {
+        adminPasswordInput.type = 'password';
+    });
+    passwordToggleIcon.addEventListener('mouseleave', () => {
+        adminPasswordInput.type = 'password';
+    });
+    // For mobile
+    passwordToggleIcon.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        adminPasswordInput.type = 'text';
+    });
+    passwordToggleIcon.addEventListener('touchend', () => {
+        adminPasswordInput.type = 'password';
+    });
+
+
     window.onload = () => {
       initializeContent();
       loadSiteContent();
+      // コンテンツがロードされた後にアニメーションを設定
+      setupScrollAnimations();
     };
   </script>
 </body>
