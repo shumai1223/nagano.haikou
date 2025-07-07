@@ -331,7 +331,7 @@
       border: 1px solid #3b5998;
       border-radius: 10px;
       background: #111a2d;
-      color: #e8eafc;
+      color: #e8e4fc; /* Changed to a slightly different off-white */
       font-size: 1.05em;
       transition: border-color 0.3s ease, box-shadow 0.3s ease;
       outline: 2px solid transparent;
@@ -695,7 +695,7 @@
       border: 1px solid #3b5998;
       border-radius: 10px;
       padding: 20px;
-      color: #e8eafc;
+      color: #e8e4fc; /* Changed to a slightly different off-white */
       font-size: 1.1em;
       resize: vertical;
       margin-bottom: 0;
@@ -736,7 +736,7 @@
     }
     .admin-list li span {
       flex-grow: 1;
-      color: #e8eafc;
+      color: #e8e4fc; /* Changed to a slightly different off-white */
     }
     .admin-list li button {
       background: none;
@@ -767,7 +767,7 @@
         border: 1px solid #3b5998;
         border-radius: 10px;
         background: #111a2d;
-        color: #e8eafc;
+        color: #e8e4fc; /* Changed to a slightly different off-white */
         font-size: 1em;
     }
     
@@ -779,7 +779,7 @@
         border: 1px solid #3b5998;
         border-radius: 10px;
         background: #111a2d;
-        color: #e8eafc;
+        color: #e8e4fc; /* Changed to a slightly different off-white */
         font-size: 1.05em;
         resize: vertical;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -1277,9 +1277,9 @@
                     <h3>サイトトラフィック</h3>
                     <p class="description">ウェブサイトへのアクセス状況を可視化します。</p>
                     <div class="bg-gray-900 rounded-lg p-4 mb-4">
-                        <p class="text-gray-400">月間訪問者数: <span id="monthly-visitors" class="text-white font-bold">12,345</span></p>
-                        <p class="text-gray-400">ページビュー数: <span id="page-views" class="text-white font-bold">56,789</span></p>
-                        <p class="text-gray-400">平均滞在時間: <span id="avg-time" class="text-white font-bold">3分45秒</span></p>
+                        <p class="text-gray-400">月間訪問者数: <span id="monthly-visitors" class="text-white font-bold"></span></p>
+                        <p class="text-gray-400">ページビュー数: <span id="page-views" class="text-white font-bold"></span></p>
+                        <p class="text-gray-400">平均滞在時間: <span id="avg-time" class="text-white font-bold"></span></p>
                         <div class="mt-4 h-48 bg-blue-900 rounded-md flex items-center justify-center text-gray-500">
                             [トラフィックデータグラフのプレースホルダー]
                         </div>
@@ -1290,8 +1290,8 @@
                     <h3>ユーザーエンゲージメント</h3>
                     <p class="description">ユーザーのサイト内での行動を分析します。</p>
                     <div class="bg-gray-900 rounded-lg p-4 mb-4">
-                        <p class="text-gray-400">お問い合わせフォーム送信数: <span id="contact-submissions" class="text-white font-bold">128</span></p>
-                        <p class="text-gray-400">最も閲覧されたセクション: <span id="most-viewed-section" class="text-white font-bold">廃校の多様な活用案</span></p>
+                        <p class="text-gray-400">お問い合わせフォーム送信数: <span id="contact-submissions" class="text-white font-bold"></span></p>
+                        <p class="text-gray-400">最も閲覧されたセクション: <span id="most-viewed-section" class="text-white font-bold"></span></p>
                         <div class="mt-4 h-48 bg-blue-900 rounded-md flex items-center justify-center text-gray-500">
                             [エンゲージメントデータグラフのプレースホルダー]
                         </div>
@@ -1312,9 +1312,7 @@
                     <h3>システム通知</h3>
                     <p class="description">重要なシステムアラートや更新情報を確認します。</p>
                     <ul id="system-alerts-list" class="admin-list">
-                        <li><span>[2025/07/07 10:30] データベースバックアップ完了</span></li>
-                        <li><span>[2025/07/06 18:00] サイトパフォーマンス低下を検知</span></li>
-                        <li><span>[2025/07/05 09:00] 新バージョンリリース準備完了</span></li>
+                        <!-- System alerts will be dynamically loaded here -->
                     </ul>
                     <button id="clear-alerts-btn" class="btn btn-secondary mt-2">通知をクリア</button>
                 </div>
@@ -1322,8 +1320,7 @@
                     <h3>ユーザーメッセージ受信箱</h3>
                     <p class="description">お問い合わせフォームから送信されたメッセージを確認します。</p>
                     <ul id="user-messages-list" class="admin-list">
-                        <li><span>[2025/07/07] 山田太郎: 廃校活用について質問です...</span><button class="delete-message-btn" data-id="msg1">削除</button></li>
-                        <li><span>[2025/07/06] 佐藤花子: 地域のイベント開催について...</span><button class="delete-message-btn" data-id="msg2">削除</button></li>
+                        <!-- User messages will be dynamically loaded here -->
                     </ul>
                     <button id="load-more-messages-btn" class="btn btn-secondary mt-2">さらに読み込む</button>
                 </div>
@@ -1367,7 +1364,7 @@
                 </div>
                 <div class="admin-feature-block advanced-admin-feature">
                     <h4 class="text-lg text-blue-200 mb-2">APIキー管理</h4>
-                    <p class="mb-2">現在のAPIキー: <code id="current-api-key" class="text-yellow-300">********</code></p>
+                    <p class="mb-2">現在のAPIキー: <code id="current-api-key" class="text-yellow-300"></code></p>
                     <button id="generate-api-key-btn" class="btn btn-secondary">新しいAPIキーを生成</button>
                 </div>
                 <div class="admin-feature-block advanced-admin-feature">
@@ -1378,15 +1375,15 @@
                 <div class="admin-feature-block advanced-admin-feature">
                     <h4 class="text-lg text-blue-200 mb-2">その他の設定</h4>
                     <div>
-                      <p class="mb-2">二要素認証: <span id="mfa-status">無効</span></p>
+                      <p class="mb-2">二要素認証: <span id="mfa-status"></span></p>
                       <button id="enable-mfa-btn" class="btn btn-secondary">有効にする</button>
                     </div>
                     <div class="mt-4">
-                      <p class="mb-2">アクティブセッション: <span id="active-sessions">3</span></p>
+                      <p class="mb-2">アクティブセッション: <span id="active-sessions"></span></p>
                       <button id="terminate-session-btn" class="btn btn-secondary">全セッションを終了</button>
                     </div>
                     <div class="mt-4">
-                      <p class="mb-2">最新ログ: <code id="recent-log">ログなし</code></p>
+                      <p class="mb-2">最新ログ: <code id="recent-log"></code></p>
                       <button id="view-log-btn" class="btn btn-secondary">ログを表示</button>
                     </div>
                 </div>
@@ -1686,9 +1683,16 @@
         ];
 
         const defaultUserMessages = [
-            { id: 'msg1', sender: '山田太郎', email: 'yamada@example.com', message: '廃校活用について質問があります。具体的な支援策はありますか？' },
-            { id: 'msg2', sender: '佐藤花子', email: 'sato@example.com', message: '地域のイベント開催に廃校を利用したいのですが、手続きを教えてください。' },
-            { id: 'msg3', sender: '田中一郎', email: 'tanaka@example.com', message: 'プロジェクトの進捗状況について教えてください。' }
+            { id: 'msg1', sender: 'xxxx', email: 'yamada@example.com', message: '廃校活用について質問があります。具体的な支援策はありますか？' },
+            { id: 'msg2', sender: 'xxxx', email: 'sato@example.com', message: '地域のイベント開催に廃校を利用したいのですが、手続きを教えてください。' },
+            { id: 'msg3', sender: 'xxxx', email: 'tanaka@example.com', message: 'プロジェクトの進捗状況について教えてください。' }
+        ];
+
+        // 新しく追加するシステム通知のデフォルトデータ
+        const defaultSystemAlerts = [
+            { id: 'alert1', message: '[2025/07/07 10:30] データベースバックアップ完了' },
+            { id: 'alert2', message: '[2025/07/06 18:00] サイトパフォーマンス低下を検知' },
+            { id: 'alert3', message: '[2025/07/05 09:00] 新バージョンリリース準備完了' }
         ];
 
 
@@ -1707,6 +1711,10 @@
             }
             if (!localStorage.getItem('userMessagesData')) {
                 localStorage.setItem('userMessagesData', JSON.stringify(defaultUserMessages));
+            }
+            // システム通知のデフォルトデータを初期化
+            if (!localStorage.getItem('systemAlertsData')) {
+                localStorage.setItem('systemAlertsData', JSON.stringify(defaultSystemAlerts));
             }
         }
 
@@ -1770,6 +1778,7 @@
             const storedTeamMembers = JSON.parse(localStorage.getItem('teamMembersData'));
             const storedMeetingMinutes = JSON.parse(localStorage.getItem('meetingMinutesData'));
             const storedUserMessages = JSON.parse(localStorage.getItem('userMessagesData'));
+            const storedSystemAlerts = JSON.parse(localStorage.getItem('systemAlertsData')); // システム通知データを取得
 
 
             if (savedTopic) discussionTopicInput.value = savedTopic;
@@ -1777,6 +1786,7 @@
             renderDiscussionPoints(savedPoints);
             renderMeetingMinutes(storedMeetingMinutes);
             renderUserMessages(storedUserMessages);
+            renderSystemAlerts(storedSystemAlerts); // システム通知をレンダリング
 
             missionTextEditor.value = storedContent.mission;
             challengesTextEditor.value = storedContent.challenges;
@@ -1811,21 +1821,18 @@
                 analyticsTabBtn.style.display = 'block';
                 notificationsTabBtn.style.display = 'block';
                 advancedTabBtn.style.display = 'block';
-                tabAnalyticsPane.style.display = 'block'; // デフォルトで表示しておく（activeクラスで制御されるため）
-                tabNotificationsPane.style.display = 'block';
-                tabAdvancedPane.style.display = 'block';
             } else {
                 analyticsTabBtn.style.display = 'none';
                 notificationsTabBtn.style.display = 'none';
                 advancedTabBtn.style.display = 'none';
-                tabAnalyticsPane.style.display = 'none';
-                tabNotificationsPane.style.display = 'none';
-                tabAdvancedPane.style.display = 'none';
-
-                // もし現在選択されているタブが非表示になるタブだった場合、コンテンツ管理タブをアクティブにする
-                const activeTabBtn = document.querySelector('.admin-tab-btn.active');
-                if (activeTabBtn && (activeTabBtn.dataset.tab === 'analytics' || activeTabBtn.dataset.tab === 'notifications' || activeTabBtn.dataset.tab === 'advanced')) {
-                    document.querySelector('.admin-tab-btn[data-tab="content"]').click(); // コンテンツ管理タブをクリックしてアクティブにする
+                tabAnalyticsPane.classList.remove('active'); // 非表示にする際はactiveクラスも削除
+                tabNotificationsPane.classList.remove('active'); // 非表示にする際はactiveクラスも削除
+                tabAdvancedPane.classList.remove('active'); // 非表示にする際はactiveクラスも削除
+                
+                // 非高度管理者でログインした場合、コンテンツ管理タブをアクティブにする
+                const contentTabButton = document.querySelector('.admin-tab-btn[data-tab="content"]');
+                if (!contentTabButton.classList.contains('active')) {
+                    contentTabButton.click();
                 }
             }
 
@@ -1889,6 +1896,16 @@
                 const li = document.createElement('li');
                 li.innerHTML = `<span>[${msg.sender}] ${msg.message.substring(0, 40)}...</span><button class="delete-message-btn" data-id="${msg.id}">削除</button>`;
                 userMessagesList.appendChild(li);
+            });
+        }
+
+        // 新しい関数: システム通知をレンダリング
+        function renderSystemAlerts(alerts) {
+            systemAlertsList.innerHTML = '';
+            alerts.forEach(alert => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${alert.message}</span><button class="delete-alert-btn" data-id="${alert.id}">削除</button>`;
+                systemAlertsList.appendChild(li);
             });
         }
         
@@ -2045,6 +2062,23 @@
                 }
             });
         }
+
+        // 新しいイベントリスナー: システム通知の削除
+        systemAlertsList.addEventListener('click', (e) => {
+            const button = e.target.closest('.delete-alert-btn');
+            if (!button) return;
+
+            const id = button.dataset.id;
+            showConfirm('このシステム通知を削除しますか？', (result) => {
+                if (result) {
+                    let alerts = JSON.parse(localStorage.getItem('systemAlertsData'));
+                    alerts = alerts.filter(alert => alert.id !== id);
+                    localStorage.setItem('systemAlertsData', JSON.stringify(alerts));
+                    showAlert('システム通知が削除されました！');
+                    loadAdminContent();
+                }
+            });
+        });
         
         usageIdeasListAdmin.addEventListener('click', handleIdeaListClick);
         examplesIdeasListAdmin.addEventListener('click', handleIdeaListClick);
@@ -2062,7 +2096,7 @@
             adminPasswordInput.value = "";
             adminMessage.style.display = "none";
             adminPasswordInput.focus();
-            loadAdminContent();
+            loadAdminContent(); // ここでコンテンツをロードし、タブの表示状態を更新
         }
 
         adminLink.addEventListener("click", openAdminPanel);
@@ -2080,15 +2114,19 @@
                     adminPasswordContainer.style.display = "none";
                     adminContent.style.display = "flex";
                     adminMessage.style.display = "none";
-                    document.querySelector('.admin-tab-btn[data-tab="content"]').click(); // デフォルトでコンテンツ管理タブをアクティブにする
+                    
                     if (isAdvancedAdmin) {
                         adminSection.classList.add("advanced-admin");
                         showAlert("高度管理者モードでログインしました。");
+                        // 高度管理者でログインした場合、分析タブをアクティブにする
+                        document.querySelector('.admin-tab-btn[data-tab="analytics"]').click(); 
                     } else {
                         adminSection.classList.remove("advanced-admin");
                         showAlert("管理者としてログインしました。");
+                        // 通常管理者でログインした場合、コンテンツ管理タブをアクティブにする
+                        document.querySelector('.admin-tab-btn[data-tab="content"]').click(); 
                     }
-                    loadAdminContent(); // タブの表示/非表示を更新
+                    loadAdminContent(); // データがロードされ、ボタンが正しく表示されることを確認
                 } else {
                     adminMessage.style.display = "block";
                 }
@@ -2383,7 +2421,8 @@
         clearAlertsBtn.addEventListener('click', () => {
             showConfirm("全てのシステム通知をクリアしますか？", (result) => {
                 if (result) {
-                    systemAlertsList.innerHTML = '';
+                    localStorage.removeItem("systemAlertsData"); // ローカルストレージからも削除
+                    renderSystemAlerts([]); // 表示をクリア
                     showAlert("システム通知がクリアされました。");
                 }
             });
@@ -2393,8 +2432,8 @@
             showLoading(loadMoreMessagesBtn);
             setTimeout(() => {
                 const newMessages = [
-                    { id: 'msg' + Date.now(), sender: '鈴木健太', email: 'suzuki@example.com', message: '廃校の活用事例についてもっと知りたいです。' },
-                    { id: 'msg' + (Date.now() + 1), sender: '高橋美咲', email: 'takahashi@example.com', message: 'プロジェクトへの参加方法を教えてください。' }
+                    { id: 'msg' + Date.now(), sender: 'xxxx', email: 'suzuki@example.com', message: '廃校の活用事例についてもっと知りたいです。' },
+                    { id: 'msg' + (Date.now() + 1), sender: 'xxxx', email: 'takahashi@example.com', message: 'プロジェクトへの参加方法を教えてください。' }
                 ];
                 let currentMessages = JSON.parse(localStorage.getItem('userMessagesData')) || [];
                 currentMessages = currentMessages.concat(newMessages);
@@ -2432,7 +2471,7 @@
                     let userMessages = JSON.parse(localStorage.getItem('userMessagesData')) || [];
                     const newMessage = {
                         id: 'msg' + Date.now(),
-                        sender: name,
+                        sender: name, // Use the actual name from the form
                         email: email,
                         message: message
                     };
