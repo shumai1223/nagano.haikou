@@ -1038,9 +1038,20 @@
         max-width: 280px;
       }
     }
+
+    /* Add styles for scrollbar and headerIn */
+    #scrollbar{transition:width 0.25s ease-out;}
+    body:not(.loading) header{animation:headerIn 0.8s ease-out 0.4s both;}
+    @keyframes headerIn{from{opacity:0;transform:translateY(-40px);}to{opacity:1;transform:none;}}
   </style>
 </head>
 <body class="loading">
+
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="sr-only focus:not-sr-only absolute top-0 left-0 m-2 bg-blue-900 text-white p-2 z-[10000] rounded">メインへスキップ</a>
+
+  <!-- Scroll progress bar -->
+  <div id="scrollbar" class="fixed top-0 left-0 h-1 bg-green-300 z-[9999]" style="width:0;"></div>
 
   <div id="preloader">
       <div class="loader-ring"></div>
@@ -1064,7 +1075,7 @@
     </div>
   </nav>
 
-  <button id="hamburger-btn" aria-label="メニューを開閉する" aria-expanded="false">
+  <button id="hamburger-btn" aria-label="メニューを開閉する" aria-expanded="false" aria-controls="mobile-menu">
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
     <span class="hamburger-line"></span>
@@ -1147,7 +1158,7 @@
 
         <input type="submit" value="送信" id="contact-submit-btn" class="btn">
       </form>
-      <div id="form-message" class="mt-4 text-center" style="display: none;"></div>
+      <div id="form-message" class="mt-4 text-center" style="display:none;" aria-live="polite"></div>
     </section>
   </main>
 
@@ -2641,6 +2652,14 @@
                 });
             });
         }
+
+        // === Scroll progress bar update ===
+        const scrollbar = document.getElementById('scrollbar');
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement;
+            const progress = (h.scrollTop)/(h.scrollHeight - h.clientHeight);
+            scrollbar.style.width = (progress * 100) + '%';
+        });
     });
   </script>
 </body>
