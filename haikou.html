@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>長野の廃校殲滅計画！</title>
   <!-- Tailwind CSS CDN -->
+  <script>
+    // Tailwind dark mode by class
+    tailwind.config = { darkMode: 'class' };
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts - Inter for modern look, Noto Sans JP for Japanese text -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -1043,6 +1047,33 @@
     #scrollbar{transition:width 0.25s ease-out;}
     body:not(.loading) header{animation:headerIn 0.8s ease-out 0.4s both;}
     @keyframes headerIn{from{opacity:0;transform:translateY(-40px);}to{opacity:1;transform:none;}}
+
+    /* Dark/light theme toggle simple inversion */
+    html.light-theme { filter: invert(1) hue-rotate(180deg) saturate(0.8); }
+    html.light-theme img, html.light-theme video { filter: invert(1) hue-rotate(180deg) saturate(0.8); }
+
+    /* Dark-toggle button hover */
+    #dark-toggle { background:none; border:none; font-size:1.5em; cursor:pointer; transition:transform 0.3s ease; }
+    #dark-toggle:hover { transform:scale(1.2) translateY(-2px); }
+
+    /* Subtle background flourish */
+    body::before {
+        content: '';
+        position: fixed;
+        top: -50%;
+        left: -25%;
+        width: 150%;
+        height: 150%;
+        background: radial-gradient(circle at center, rgba(167, 243, 208, 0.15) 0%, transparent 70%);
+        pointer-events: none;
+        animation: bgFloat 20s ease-in-out infinite alternate;
+        z-index: -1;
+    }
+    @keyframes bgFloat {
+        0% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-3%) scale(1.05); }
+        100% { transform: translateY(0) scale(1); }
+    }
   </style>
 </head>
 <body class="loading">
@@ -1073,6 +1104,7 @@
         <a href="#contact" data-nav-id="contact" aria-label="お問い合わせ">お問い合わせ</a>
         <a href="#" id="adminLink" aria-label="管理者ページへ">管理者</a>
     </div>
+    <button id="dark-toggle" class="ml-4 text-blue-200 focus:outline-none" aria-label="ダークモード切替">🌙</button>
   </nav>
 
   <button id="hamburger-btn" aria-label="メニューを開閉する" aria-expanded="false" aria-controls="mobile-menu">
@@ -1582,6 +1614,7 @@
             customAlertMessage.textContent = message;
             customAlertDialog.classList.add('is-visible');
             customAlertOkBtn.focus();
+            trapFocus(customAlertDialog);
         }
 
         function showConfirm(message, callback) {
@@ -1589,14 +1622,17 @@
             confirmCallback = callback;
             customConfirmDialog.classList.add('is-visible');
             customConfirmOkBtn.focus();
+            trapFocus(customConfirmDialog);
         }
 
         customAlertOkBtn.addEventListener('click', () => {
             customAlertDialog.classList.remove('is-visible');
+            if(lastFocusedElement) lastFocusedElement.focus();
         });
 
         customConfirmOkBtn.addEventListener('click', () => {
             customConfirmDialog.classList.remove('is-visible');
+            if(lastFocusedElement) lastFocusedElement.focus();
             if (confirmCallback) {
                 confirmCallback(true);
                 confirmCallback = null;
@@ -1605,6 +1641,7 @@
 
         customConfirmCancelBtn.addEventListener('click', () => {
             customConfirmDialog.classList.remove('is-visible');
+            if(lastFocusedElement) lastFocusedElement.focus();
             if (confirmCallback) {
                 confirmCallback(false);
                 confirmCallback = null;
@@ -2194,6 +2231,7 @@
             localStorage.setItem("adminDiscussionTopic", discussionTopicInput.value);
             localStorage.setItem("adminDiscussionNotes", adminTextarea.value);
             showAlert("メモとテーマが保存されました！");
+            flashSave(saveNotesBtn.closest('.admin-feature-block'));
         });
 
         clearNotesBtn.addEventListener("click", () => {
@@ -2274,6 +2312,7 @@
             currentContent.footerText = footerTextEditor.value;
             localStorage.setItem('mainContentData', JSON.stringify(currentContent));
             showAlert('主要コンテンツが保存されました！');
+            flashSave(saveMainContentBtn.closest('.admin-feature-block'));
             loadSiteContent();
         });
 
@@ -2659,6 +2698,61 @@
             const h = document.documentElement;
             const progress = (h.scrollTop)/(h.scrollHeight - h.clientHeight);
             scrollbar.style.width = (progress * 100) + '%';
+        });
+
+        // === Flash Save helper ===
+        function flashSave(container){
+            if(!container) return;
+            container.classList.add('animate__animated','animate__flash');
+            container.addEventListener('animationend',()=>{
+                container.classList.remove('animate__animated','animate__flash');
+            },{once:true});
+        }
+
+        // === Focus trap for custom modals ===
+        let lastFocusedElement = null;
+        function trapFocus(modal){
+            const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+            const focusables = Array.from(modal.querySelectorAll(focusableSelectors));
+            if(!focusables.length) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length -1];
+            lastFocusedElement = document.activeElement;
+            function handleKey(e){
+                if(e.key === 'Tab'){
+                    if(e.shiftKey){
+                        if(document.activeElement === first){ e.preventDefault(); last.focus(); }
+                    } else {
+                        if(document.activeElement === last){ e.preventDefault(); first.focus(); }
+                    }
+                } else if(e.key === 'Escape'){
+                    modal.classList.remove('is-visible');
+                    document.removeEventListener('keydown', handleKey);
+                    if(lastFocusedElement) lastFocusedElement.focus();
+                }
+            }
+            document.addEventListener('keydown', handleKey);
+            first.focus();
+        }
+
+        // Dark toggle JS after DOMContentLoaded variable initializations maybe near variable declarations.
+        const darkToggleBtn = document.getElementById('dark-toggle');
+        const htmlEl = document.documentElement;
+        function applyTheme(theme){
+            if(theme === 'light'){
+                htmlEl.classList.add('light-theme');
+                darkToggleBtn.textContent = '☀️';
+            } else {
+                htmlEl.classList.remove('light-theme');
+                darkToggleBtn.textContent = '🌙';
+            }
+        }
+        const storedTheme = localStorage.getItem('theme') || 'dark';
+        applyTheme(storedTheme);
+        darkToggleBtn.addEventListener('click', () => {
+            const newTheme = htmlEl.classList.contains('light-theme') ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
         });
     });
   </script>
