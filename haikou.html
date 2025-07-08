@@ -305,7 +305,7 @@
     }
     .idea h3 {
       font-size: 1.9em;
-      color: #e8eafc;
+      color: #e8e4fc; /* Changed to a slightly different off-white */
       margin-bottom: 10px;
     }
     .idea p {
@@ -651,6 +651,7 @@
     .admin-tab-btn:hover {
         background: rgba(167, 243, 208, 0.1);
         color: #a7f3d0;
+        transform: translateY(-2px); /* ホバーで少し浮き上がる */
     }
     .admin-tab-btn.active {
         color: #a7f3d0;
@@ -729,10 +730,11 @@
       border-radius: 8px;
       margin-bottom: 8px;
       border: 1px solid rgba(167, 243, 208, 0.1);
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.2s; /* ホバーアニメーション追加 */
     }
     .admin-list li:hover {
         background-color: rgba(59, 89, 152, 0.7);
+        transform: translateX(5px); /* ホバーで少し右に移動 */
     }
     .admin-list li span {
       flex-grow: 1;
@@ -754,7 +756,7 @@
     .admin-list li button:hover {
       color: #dc2626;
       background-color: rgba(239, 68, 68, 0.1);
-      transform: scale(1.1);
+      transform: scale(1.1); /* ホバーで拡大 */
     }
     .admin-list li button:focus-visible {
       outline: 2px solid #a7f3d0;
@@ -951,6 +953,9 @@
         font-size: 3.5em; /* スマホでのサイズ */
         padding-left: 20px;
         margin-bottom: 35px;
+      }
+      h2.is-visible::before { /* スマホでもアニメーションを適用 */
+          height: 100%;
       }
       p {
         font-size: 1.05em;
@@ -2097,6 +2102,8 @@
             adminMessage.style.display = "none";
             adminPasswordInput.focus();
             loadAdminContent(); // ここでコンテンツをロードし、タブの表示状態を更新
+            // 管理者ページに遷移したらスクロール位置をリセット
+            window.scrollTo({ top: 0, behavior: "instant" });
         }
 
         adminLink.addEventListener("click", openAdminPanel);
@@ -2162,6 +2169,8 @@
                         pane.classList.add('active');
                     }
                 });
+                // タブ切り替え時にスクロール位置をリセット
+                adminSection.scrollTo({ top: 0, behavior: "instant" });
             }
         });
 
@@ -2499,15 +2508,16 @@
         const scrollToTopBtn = document.getElementById("scrollToTopBtn");
         const nav = document.querySelector('nav');
 
+        // Scroll to top button and nav scroll effect
         window.onscroll = function() {
-            if (adminSection.style.display === "flex") {
-                scrollToTopBtn.classList.remove('visible');
-            } else if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            // トップに戻るボタンの表示/非表示
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
                 scrollToTopBtn.classList.add('visible');
             } else {
                 scrollToTopBtn.classList.remove('visible');
             }
 
+            // ナビゲーションバーのスクロールエフェクト
             if (window.scrollY > 50) {
                 nav.classList.add('scrolled');
             } else {
